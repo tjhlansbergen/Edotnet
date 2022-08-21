@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EBuildIn", "EBuildIn\EBuild
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EInterpreter", "EInterpreter\EInterpreter.csproj", "{FC91368D-B8D3-40AF-9769-5E3273801204}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EConsole", "EConsole\EConsole.csproj", "{75C19D80-8AA9-40C8-94CE-4704A2322DC7}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -24,5 +26,9 @@ Global
 		{FC91368D-B8D3-40AF-9769-5E3273801204}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{FC91368D-B8D3-40AF-9769-5E3273801204}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{FC91368D-B8D3-40AF-9769-5E3273801204}.Release|Any CPU.Build.0 = Release|Any CPU
+		{75C19D80-8AA9-40C8-94CE-4704A2322DC7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{75C19D80-8AA9-40C8-94CE-4704A2322DC7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{75C19D80-8AA9-40C8-94CE-4704A2322DC7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{75C19D80-8AA9-40C8-94CE-4704A2322DC7}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
