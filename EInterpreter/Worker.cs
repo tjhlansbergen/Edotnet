@@ -26,6 +26,10 @@ namespace EInterpreter
             _lines = lines;
             _name = name;
 
+            Console.WriteLine();
+            Extensions.WriteColoredLine("XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", ConsoleColor.Magenta);
+            Console.WriteLine();
+
             try
             {
                 _preValidate();
@@ -37,6 +41,11 @@ namespace EInterpreter
             {
                 Extensions.WriteColoredLine(ex.Message, ConsoleColor.Red);
             }
+
+
+            Console.WriteLine();
+            Extensions.WriteColoredLine("XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", ConsoleColor.Magenta);
+            Console.WriteLine();
         }
 
         private void _preValidate()
