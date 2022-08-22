@@ -1,9 +1,7 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using System.Text;
 using EInterpreter.EElements;
 
-namespace EInterpreter.EObjects
+namespace EInterpreter.Lexing
 {
     public class ETree
     {

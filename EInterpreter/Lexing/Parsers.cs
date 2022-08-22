@@ -1,8 +1,6 @@
 ﻿using EInterpreter.EElements;
-using System;
-using System.Collections.Generic;
 
-namespace EInterpreter.Lexer
+namespace EInterpreter.Lexing
 {
     public static class Parsers
     {

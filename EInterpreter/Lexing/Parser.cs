@@ -1,10 +1,6 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using EInterpreter.EElements;
-using EInterpreter.EObjects;
+﻿using EInterpreter.EElements;
 
-
-namespace EInterpreter.Lexer
+namespace EInterpreter.Lexing
 {
     /// <summary>
     /// Responsible for parsing a list of tokens into an Abstract Source Tree

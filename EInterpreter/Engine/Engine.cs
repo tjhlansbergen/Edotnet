@@ -1,11 +1,8 @@
-﻿using EInterpreter.EElements;
-using EInterpreter.EObjects;
-using System;
-using System.Collections.Generic;
+﻿using System;
+using EInterpreter.EElements;
 using System.Diagnostics;
-using System.Linq;
 using EBuildIn;
-using EInterpreter.Lexer;
+using EInterpreter.Lexing;
 
 namespace EInterpreter.Engine
 {

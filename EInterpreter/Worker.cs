@@ -1,8 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using EInterpreter.EObjects;
 using EInterpreter.Validation;
+using EInterpreter.Lexing;
 
 namespace EInterpreter
 {
@@ -85,7 +83,7 @@ namespace EInterpreter
         private void _lex()
         {
             Extensions.WriteColoredLine("Lexing: ", ConsoleColor.DarkCyan);
-            _tree = new Lexer.Lexer().GetTree(_lines);
+            _tree = new Lexer().GetTree(_lines);
             if (_tree != null)
             {
                 Console.WriteLine(_tree.Summarize());

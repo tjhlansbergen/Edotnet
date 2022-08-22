@@ -1,4 +1,4 @@
-﻿namespace EInterpreter.Lexer
+﻿namespace EInterpreter.Lexing
 {
     public class EToken
     {

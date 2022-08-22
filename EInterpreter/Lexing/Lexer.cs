@@ -1,7 +1,5 @@
-﻿using EInterpreter.EObjects;
-using System.Collections.Generic;
-
-namespace EInterpreter.Lexer
+﻿
+namespace EInterpreter.Lexing
 {
 
     /// <summary>
