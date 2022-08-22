@@ -9,6 +9,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EInterpreter", "EInterprete
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EConsole", "EConsole\EConsole.csproj", "{75C19D80-8AA9-40C8-94CE-4704A2322DC7}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EBuildIn.Tests", "EBuildIn.Tests\EBuildIn.Tests.csproj", "{D0CE2009-7592-44F8-A3B3-4B063339D843}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -30,5 +32,9 @@ Global
 		{75C19D80-8AA9-40C8-94CE-4704A2322DC7}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{75C19D80-8AA9-40C8-94CE-4704A2322DC7}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{75C19D80-8AA9-40C8-94CE-4704A2322DC7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D0CE2009-7592-44F8-A3B3-4B063339D843}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D0CE2009-7592-44F8-A3B3-4B063339D843}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D0CE2009-7592-44F8-A3B3-4B063339D843}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D0CE2009-7592-44F8-A3B3-4B063339D843}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
