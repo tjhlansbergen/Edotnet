@@ -9,6 +9,18 @@ Utility Program
 		lineToWrite = "Hello World!";		
 
 		Console:WriteText(lineToWrite);
+
+		// part two
+		new Number someNumber;
+		someNumber = 42;
+
+		Console:WriteNumber(someNumber);
+
+		new Number someOtherNumber;
+		someOtherNumber = someNumber;
+
+		Console:WriteNumber(someOtherNumber);
+
 		return true;
 	}
 }

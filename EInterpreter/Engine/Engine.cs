@@ -106,10 +106,8 @@ namespace EInterpreter.Engine
         private void _handleAssignment(EAssignment assignment, string scope)
         {
             var result = _expandParameter(assignment.Parameter);
-            result.Name = assignment.Name;
-            result.Scope = scope;
 
-            var existingVariable = _stack.FirstOrDefault(v => v.Name == result.Name);
+            var existingVariable = _stack.SingleOrDefault(v => v.Name == assignment.Name);
             if (existingVariable != null)
             {
                 existingVariable.Value = result.Value;
