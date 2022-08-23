@@ -62,7 +62,9 @@ namespace EInterpreter.Tests
         [DataRow(new[] { "Hello World!" }, "hello_world_if.e")]
         [DataRow(new[] { "Hello World!" }, "hello_world_while.e")]
         [DataRow(new[] { "63" }, "number_addition.e")]
-        [DataRow(new[] { "8" }, "number_calculus.e")]
+        [DataRow(new[] { "420" }, "number_calculus.e")]
+        [DataRow(new[] { "6" }, "number_calculus.e")]
+        [DataRow(new[] { "3" }, "number_calculus.e")]
         [DataRow(new[] { "Hello World!" }, "number_equality.e")]
         public void TestWorkerFullScripts(string[] shouldContain, string name)
         {

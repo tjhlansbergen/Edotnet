@@ -5,18 +5,21 @@ Utility Program
 	Function Boolean Start(Text arguments)
 	{
 		new Number someNumber;
+		new Number someOtherNumber;
 		
 		someNumber = 42;
-		Console:WriteNumber(someNumber);
 
-		Number:Multiply(someNumber, 10);
+		someOtherNumber = Number:Multiply(someNumber, 10);
 		Console:WriteNumber(someNumber);
+		Console:WriteNumber(someOtherNumber);
 
-		Number:Divide(someNumber, 7);
+		someOtherNumber = Number:Divide(someNumber, 7);
 		Console:WriteNumber(someNumber);
+		Console:WriteNumber(someOtherNumber);
 
-		Number:Remainder(someNumber, 13);
+		someOtherNumber = Number:Remainder(someNumber, 13);
 		Console:WriteNumber(someNumber);
+		Console:WriteNumber(someOtherNumber);
 
 		return true;
 	}

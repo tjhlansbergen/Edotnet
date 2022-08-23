@@ -69,15 +69,8 @@ namespace EBuildIn
 
         private static Variable Operator(Variable var, Variable value, Func<double, double, double> operate)
         {
-            if (TryConvertValue(value, out var result))
-            {
-                var.Value = operate((double)var.Value, result);
-                return new Variable(Types.Boolean, true);
-            }
-            else
-            {
-                return new Variable(Types.Boolean, false);
-            }
+            TryConvertValue(value, out var result); 
+            return new Variable(Types.Number, operate((double)var.Value, result));
         }
 
         private static bool TryConvertValue(Variable value, out double result)

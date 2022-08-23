@@ -22,8 +22,8 @@ namespace EBuildIn.Tests
             var result = Number.Add(aa, bb);
 
             // assert
-            Assert.IsTrue((bool)result.Value);
-            Assert.AreEqual(expected, aa.Value);
+            Assert.AreEqual(expected, result.Value);
+            Assert.AreEqual(a, aa.Value);
             Assert.AreEqual(b, bb.Value);
         }
 
@@ -41,8 +41,8 @@ namespace EBuildIn.Tests
             var result = Number.Subtract(aa, bb);
 
             // assert
-            Assert.IsTrue((bool)result.Value);
-            Assert.AreEqual(expected, aa.Value);
+            Assert.AreEqual(expected, result.Value);
+            Assert.AreEqual(a, aa.Value);
             Assert.AreEqual(b, bb.Value);
         }
 

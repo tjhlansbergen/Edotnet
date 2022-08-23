@@ -5,15 +5,17 @@ Utility Program
 	Function Boolean Start(Text arguments)
 	{
 		new Number someNumber;
+		new Number someOtherNumber;
 		
 		someNumber = 42;
 		Console:WriteNumber(someNumber);
 
-		Number:Add(someNumber, 42);
+		someOtherNumber = Number:Add(someNumber, 42);
 		Console:WriteNumber(someNumber);
+		Console:WriteNumber(someOtherNumber);
 
-		Number:Subtract(someNumber, 21);
-		Console:WriteNumber(someNumber);
+		someOtherNumber = Number:Subtract(someOtherNumber, 21);
+		Console:WriteNumber(someOtherNumber);
 	
 		return true;
 	}

@@ -31,7 +31,7 @@ Utility Program
 		while(keepLooping)
 		{
 			Console:WriteNumber(count);
-			Number:Add(count, 1);
+			count = Number:Add(count, 1);
 
 			if(Number:AreEqual(count, 10))
 			{
@@ -54,7 +54,7 @@ Utility Program
 		while(Number:LessThen(count2, 15))
 		{
 			Console:WriteNumber(count2);
-			Number:Add(count2, 2);
+			count2 = Number:Add(count2, 2);
 		}
 
 		return true;
@@ -73,7 +73,7 @@ Utility Program
 		while(Number:GreaterThen(count3, -1))
 		{
 			Console:WriteNumber(count3);
-			Number:Subtract(count3, 10);
+			count3 = Number:Subtract(count3, 10);
 		}
 		
 		return true;
