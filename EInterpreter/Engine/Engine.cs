@@ -185,13 +185,13 @@ namespace EInterpreter.Engine
             // determine the type step by step
 
             // is it true/false?
-            if (bool.TryParse(parameter, out bool boolean)) { return new Variable(Types.Boolean.ToString(), boolean); }
+            if (bool.TryParse(parameter, out bool boolean)) { return new Variable(Types.Boolean, boolean); }
 
             // is it a literal double?
-            if (double.TryParse(parameter, out double number)) { return new Variable(Types.Number.ToString(), number); }
+            if (double.TryParse(parameter, out double number)) { return new Variable(Types.Number, number); }
 
             // is it a string-literal
-            if (parameter.StartsWith("\"") && parameter.EndsWith("\"")) { return new Variable(Types.Text.ToString(), parameter.Replace("\"", "")); }
+            if (parameter.StartsWith("\"") && parameter.EndsWith("\"")) { return new Variable(Types.Text, parameter.Replace("\"", "")); }
 
             // we don't support inline-lists (yet), no need to check for that
 

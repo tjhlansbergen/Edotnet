@@ -5,7 +5,7 @@
         Boolean,
         Number,
         Text,
-        Variable
+        
         //TODO List<>
     }
 }

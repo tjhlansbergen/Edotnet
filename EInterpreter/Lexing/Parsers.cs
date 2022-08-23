@@ -83,7 +83,7 @@ namespace EInterpreter.Lexing
         {
             var lineArr = line.SplitClean(';')[0].SplitClean(' ');
 
-            if(lineArr.Length != 3 || lineArr[0] != "new") { throw new ParserException("Unparsable init");}
+            if(lineArr.Length != 3 || lineArr[0] != "new") { throw new ParserException("Unparsable declaration");}
             
             return new EDeclaration(lineArr[1], lineArr[2]);
         }

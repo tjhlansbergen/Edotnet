@@ -35,7 +35,7 @@ namespace EBuildIn
             System.Console.WriteLine("| " + line);
             System.Console.ForegroundColor = currentColor;
 
-            return new Variable(Types.Boolean.ToString(), true);
+            return new Variable(Types.Boolean, true);
         }
     }
 }
