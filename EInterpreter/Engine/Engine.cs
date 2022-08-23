@@ -108,15 +108,20 @@ namespace EInterpreter.Engine
             var result = _expandParameter(assignment.Parameter);
 
             var existingVariable = _stack.SingleOrDefault(v => v.Name == assignment.Name);
-            if (existingVariable != null)
-            {
-                existingVariable.Value = result.Value;
-            }
-            else
+            if (existingVariable == null)
             {
                 // don't add to non existing variable, that would be weak typing
                 throw new EngineException($"Attempt to assign value to non-existing variable: {assignment.Name}");
             }
+            
+            if(existingVariable.Type != result.Type)
+            {
+                // don't assign when types do not match
+                throw new EngineException($"Cannot assign value of type {result.Type} to variable of type {existingVariable.Type}");
+            }
+
+            existingVariable.Value = result.Value;
+            
         }
 
         private Variable _handleStatement(EStatement statement, string scope)
