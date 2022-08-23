@@ -59,11 +59,11 @@ namespace EBuildIn
         {
             if (TryConvertValue(x, out double xx) && TryConvertValue(y, out double yy) && compare(xx, yy))
             {
-                return new Variable(Types.Boolean.ToString(), true);
+                return new Variable(Types.Boolean, true);
             }
             else
             {
-                return new Variable(Types.Boolean.ToString(), false);
+                return new Variable(Types.Boolean, false);
             }
         }
 
@@ -72,11 +72,11 @@ namespace EBuildIn
             if (TryConvertValue(value, out var result))
             {
                 var.Value = operate((double)var.Value, result);
-                return new Variable(Types.Boolean.ToString(), true);
+                return new Variable(Types.Boolean, true);
             }
             else
             {
-                return new Variable(Types.Boolean.ToString(), false);
+                return new Variable(Types.Boolean, false);
             }
         }
 

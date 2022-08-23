@@ -21,17 +21,28 @@ Utility Program
 			new Text message;
 			message = "";
 
+			new Number testFizz;
+			new Number testBuzz;
+			testFizz = count;
+			testBuzz = count;
 
-			//if(Number:Remainder(count, 3))
-			//{
-			//	Text:Append(message, "Fizz");
-			//}
-			//if(Number:Remainder(count, 5))
-			//{
-			//	Text:Append(message, "Buzz");
-			//}
+			Number:Remainder(testFizz, 3);
+			Number:Remainder(testBuzz, 5);
 
-			Console:WriteNumber(count);
+			if(Number:AreEqual(testFizz, 0))
+			{
+				message = "Fizz";
+				Text:Append(message, "Fizz");
+			}
+			if(Number:AreEqual(testBuzz, 0))
+			{
+				Text:Append(message, "Buzz");
+			}
+			if(Text:Equals(message, ""))
+			{
+				message = count;
+			}
+
 			Console:WriteText(message);	
 		}
 

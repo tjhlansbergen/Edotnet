@@ -17,5 +17,11 @@
             Value = value;
             Scope = scope;
         }
+        public Variable(EBuildIn.Types type, object? value, string scope = "")
+        {
+            Type = type.ToString();
+            Value = value;
+            Scope = scope;
+        }
     }
 }
