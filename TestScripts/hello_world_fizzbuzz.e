@@ -16,18 +16,16 @@ Utility Program
 
 		while(Number:LessThen(count, 100))
 		{
-			Number:Add(count, 1);
+			count = Number:Add(count, 1);
 
 			new Text message;
 			message = "";
 
 			new Number testFizz;
 			new Number testBuzz;
-			testFizz = count;
-			testBuzz = count;
 
-			Number:Remainder(testFizz, 3);
-			Number:Remainder(testBuzz, 5);
+			testFizz = Number:Remainder(count, 3);
+			testBuzz = Number:Remainder(count, 5);
 
 			if(Number:AreEqual(testFizz, 0))
 			{
@@ -40,7 +38,7 @@ Utility Program
 			}
 			if(Text:Equals(message, ""))
 			{
-				message = count;
+				message = Number:ToText(count);
 			}
 
 			Console:WriteText(message);	

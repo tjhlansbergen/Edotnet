@@ -17,6 +17,8 @@ namespace EBuildIn
         public static List<string> LessThenParameters => new List<string> { Types.Number.ToString(), Types.Number.ToString() };
         public static List<string> GreaterThenParameters => new List<string> { Types.Number.ToString(), Types.Number.ToString() };
 
+        public static List<string> ToTextParameters => new List<string> { Types.Number.ToString() };
+
         public static Variable Add(Variable var, Variable value)
         {
             return Operator(var, value, (x, y) => x + y);
@@ -53,6 +55,11 @@ namespace EBuildIn
         public static Variable GreaterThen(Variable a, Variable b)
         {
             return Comparison(a, b, (x, y) => x > y);
+        }
+
+        public static Variable ToText(Variable a)
+        {
+            return new Variable(Types.Text, a.Value?.ToString());
         }
 
         private static Variable Comparison(Variable x, Variable y, Func<double, double, bool> compare)
