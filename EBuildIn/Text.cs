@@ -28,11 +28,17 @@ namespace EBuildIn
 
         public static Variable Equals(Variable var, Variable value)
         {
-            return new Variable(Types.Boolean, var.Value.ToString() == value.Value.ToString());
+            // note that null == null will return true here
+            return new Variable(Types.Boolean, var.Value?.ToString() == value.Value?.ToString());
         }
 
         public static Variable Contains(Variable var, Variable value)
         {
+            if(var?.Value == null || value?.Value == null)
+            {
+                // if either side is null thats a false
+                return new Variable(Types.Boolean, false);
+            }
             return new Variable(Types.Boolean, var.Value.ToString().Contains(value.Value.ToString()));
         }
     }
