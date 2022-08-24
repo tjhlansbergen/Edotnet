@@ -140,8 +140,7 @@ namespace EInterpreter.Engine
             // evaluate
             var evaluation = _expandParameter(statement.Evaluable);
 
-            if (!Enum.TryParse<Types>(evaluation.Type, out Types type)) throw new EngineException($"Statement of type {statement.Type} in {scope} has unparsable variable type: {evaluation.Type}");
-            if (type != Types.Boolean) throw new EngineException($"Variable for {statement.Type} statement in {scope} is of type {type}, but a {Types.Boolean} was expected");
+            if (evaluation.Type != Types.Boolean) throw new EngineException($"Variable for {statement.Type} statement in {scope} is of type {evaluation.Type}, but a {Types.Boolean} was expected");
             if (evaluation.Value == null) throw new EngineException($"Variable for {statement.Type} statement in {scope} is unassigned");
 
             if ((bool)evaluation.Value != true)
@@ -224,7 +223,7 @@ namespace EInterpreter.Engine
             var variable = _expandParameter(constant.Value);
             variable.Name = constant.Name;
 
-            if (variable.Type != constant.Prop.Type) { throw new ParserException($"Type mismatch in constant: {constant.Name}"); }
+            if (variable.Type.ToString() != constant.Prop.Type) { throw new ParserException($"Type mismatch in constant: {constant.Name}"); }
 
             return variable;
         }

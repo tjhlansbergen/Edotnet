@@ -19,7 +19,7 @@ namespace EInterpreter.Engine
             var match = true;
             for (var i = 0; i < callerParameters.Count; i++)
             {
-                if (callerParameters[i].Type != subject.Parameters[i].Type)
+                if (callerParameters[i].Type.ToString() != subject.Parameters[i].Type)
                 {
                     match = false;
                     break;
@@ -39,7 +39,7 @@ namespace EInterpreter.Engine
             // first, check the number of parameters
             if (callerParameters.Count != targetParameterTypes.Count) { return false; }
 
-            return !callerParameters.Where((t, i) => t.Type != targetParameterTypes[i]).Any();
+            return !callerParameters.Where((t, i) => t.Type.ToString() != targetParameterTypes[i]).Any();
         }
     }
 }
