@@ -60,9 +60,7 @@ namespace EInterpreter.Engine
                         break;
                     case EDeclaration declaration:
                         {
-                            var var = new Variable(declaration.Prop.Type, null, scope);
-                            var.Name = declaration.Name;
-                            _stack.Add(var);
+                            _handleDeclaration(declaration, scope);
                         }
                         break;
                     case EReturn returnStatement:
@@ -103,6 +101,13 @@ namespace EInterpreter.Engine
             }
         }
 
+        private void _handleDeclaration(EDeclaration declaration, string scope)
+        {
+            var var = new Variable(declaration.Prop.Type, null, scope);
+            var.Name = declaration.Name;
+            _stack.Add(var);
+        }
+
         private void _handleAssignment(EAssignment assignment, string scope)
         {
             var result = _expandParameter(assignment.Parameter);
@@ -113,15 +118,15 @@ namespace EInterpreter.Engine
                 // don't add to non existing variable, that would be weak typing
                 throw new EngineException($"Attempt to assign value to non-existing variable: {assignment.Name}");
             }
-            
-            if(existingVariable.Type != result.Type)
+
+            if (existingVariable.Type != result.Type)
             {
                 // don't assign when types do not match
                 throw new EngineException($"Cannot assign value of type {result.Type} to variable of type {existingVariable.Type}");
             }
 
             existingVariable.Value = result.Value;
-            
+
         }
 
         private Variable _handleStatement(EStatement statement, string scope)

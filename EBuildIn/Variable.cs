@@ -4,6 +4,7 @@
     {
         public string? Name { get; set; }
         public string Type { get; private set; }
+        public List<Types> SubTypes { get; private set; } = new List<Types>();   // variables that have a underlying type such as lists. This is list because there can be more than one underlying type (e.g. dictionary, tuple, etc.)
         public object? Value { get; set; }
         public string Scope { get; set; }
 
