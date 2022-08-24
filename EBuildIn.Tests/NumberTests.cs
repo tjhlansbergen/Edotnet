@@ -15,8 +15,8 @@ namespace EBuildIn.Tests
         public void TestAdd(double a, double b, double expected)
         {
             // arrange
-            var aa = new Variable("Number", a, "TestAdd");
-            var bb = new Variable("Number", b, "TestAdd");
+            var aa = new Variable(Types.Number, a, "TestAdd");
+            var bb = new Variable(Types.Number, b, "TestAdd");
 
             // act
             var result = Number.Add(aa, bb);
@@ -34,8 +34,8 @@ namespace EBuildIn.Tests
         public void TestSubtract(double a, double b, double expected)
         {
             // arrange
-            var aa = new Variable("Number", a, "TestAdd");
-            var bb = new Variable("Number", b, "TestAdd");
+            var aa = new Variable(Types.Number, a, "TestAdd");
+            var bb = new Variable(Types.Number, b, "TestAdd");
 
             // act
             var result = Number.Subtract(aa, bb);
@@ -54,8 +54,8 @@ namespace EBuildIn.Tests
         public void TestLessThen(double a, double b, bool expected)
         {
             // arrange
-            var aa = new Variable("Number", a, "TestAdd");
-            var bb = new Variable("Number", b, "TestAdd");
+            var aa = new Variable(Types.Number, a, "TestAdd");
+            var bb = new Variable(Types.Number, b, "TestAdd");
 
             // act
             var result = Number.LessThen(aa, bb);
@@ -73,8 +73,8 @@ namespace EBuildIn.Tests
         public void TestGreaterThen(double a, double b, bool expected)
         {
             // arrange
-            var aa = new Variable("Number", a, "TestAdd");
-            var bb = new Variable("Number", b, "TestAdd");
+            var aa = new Variable(Types.Number, a, "TestAdd");
+            var bb = new Variable(Types.Number, b, "TestAdd");
 
             // act
             var result = Number.GreaterThen(aa, bb);
@@ -92,8 +92,8 @@ namespace EBuildIn.Tests
         public void TestNotEqual(double a, double b, bool expected)
         {
             // arrange
-            var aa = new Variable("Number", a, "TestAdd");
-            var bb = new Variable("Number", b, "TestAdd");
+            var aa = new Variable(Types.Number, a, "TestAdd");
+            var bb = new Variable(Types.Number, b, "TestAdd");
 
             // act
             var result = Number.NotEqual(aa, bb);

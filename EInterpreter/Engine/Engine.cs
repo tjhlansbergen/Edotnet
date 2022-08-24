@@ -103,7 +103,13 @@ namespace EInterpreter.Engine
 
         private void _handleDeclaration(EDeclaration declaration, string scope)
         {
-            var var = new Variable(declaration.Prop.Type, null, scope);
+            if(!Enum.TryParse<Types>(declaration.Prop.Type, out Types type))
+            {
+                // at some point we will have to consider user types here aswel
+                throw new EngineException($"Declaration with unknown type: {declaration.Prop.Type}");
+            }
+
+            var var = new Variable(type, null, scope);
             var.Name = declaration.Name;
             _stack.Add(var);
         }

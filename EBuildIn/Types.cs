@@ -2,6 +2,7 @@
 {
     public enum Types
     {
+        Empty,
         Boolean,
         Number,
         Text,
