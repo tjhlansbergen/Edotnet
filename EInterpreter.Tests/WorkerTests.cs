@@ -50,44 +50,5 @@ namespace EInterpreter.Tests
             // assert
             Assert.IsTrue(stringWriter.ToString().Contains(content));
         }
-
-        [TestMethod]
-        [DataRow(new[] { "Hello World!" }, "hello_world.e")]
-        [DataRow(new[] { "Hello World!" }, "hello_world_constant.e")]
-        [DataRow(new[] { "Hello World!" }, "hello_world_function.e")]
-        [DataRow(new[] { "Hello World!" }, "hello_world_parameter.e")]
-        [DataRow(new[] { "Hello World!" }, "hello_world_return.e")]
-        [DataRow(new[] { "Hello World!" }, "hello_world_variable.e")]
-        [DataRow(new[] { "Hello World!" }, "hello_world_assignment.e")]
-        [DataRow(new[] { "Hello World!" }, "hello_world_if.e")]
-        [DataRow(new[] { "Hello World!" }, "hello_world_while.e")]
-        [DataRow(new[] { "63" }, "number_addition.e")]
-        [DataRow(new[] { "420" }, "number_calculus.e")]
-        [DataRow(new[] { "6" }, "number_calculus.e")]
-        [DataRow(new[] { "3" }, "number_calculus.e")]
-        [DataRow(new[] { "Hello World!" }, "number_equality.e")]
-        public void TestWorkerFullScripts(string[] shouldContain, string name)
-        {
-            // arrange
-            var stringWriter = new StringWriter();
-            var worker = new Worker(stringWriter);
-
-            var path = Path.Combine(new DirectoryInfo(Environment.CurrentDirectory).Parent?.Parent?.Parent?.Parent?.FullName,
-                $"TestScripts\\{name}");
-            var lines = File.ReadAllLines(path);
-
-            var shouldContainComplete = shouldContain.Concat(new[] { $"Pre-validation for `{name}` successful", $"Post-validation for `{name}` successful", "ran for", "returned"});
-
-            // act
-            worker.Go(lines, name);
-
-            // assert
-            Assert.IsFalse(stringWriter.ToString().Contains("Runtime error"), $"Runtime error while running script {name}");
-
-            foreach (var s in shouldContainComplete)
-            {
-                Assert.IsTrue(stringWriter.ToString().Contains(s), $"Result for {name} does not contain: {s}");
-            }
-        }
     }
 }
