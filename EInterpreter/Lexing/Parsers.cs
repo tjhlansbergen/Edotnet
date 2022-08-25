@@ -84,8 +84,18 @@ namespace EInterpreter.Lexing
             var lineArr = line.SplitClean(';')[0].SplitClean(' ');
 
             if(lineArr.Length != 3 || lineArr[0] != "new") { throw new ParserException("Unparsable declaration");}
-            
-            return new EDeclaration(lineArr[1], lineArr[2]);
+
+            // check for subtypes
+            if (lineArr[1].Contains("<") && lineArr[1].Contains(">"))
+            {
+                var parts = lineArr[1].SplitClean('>')[0].SplitClean('<');
+                return new EDeclaration(parts[0], lineArr[2], parts[1].SplitClean(','));
+            }
+            else
+            {
+                // no subtypes
+                return new EDeclaration(lineArr[1], lineArr[2]);
+            }
         }
 
         public static EFunctionCall ParseFunctionCall(string line)

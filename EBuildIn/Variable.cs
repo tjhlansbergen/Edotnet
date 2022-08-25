@@ -4,7 +4,7 @@
     {
         public string? Name { get; set; }
         public Types Type { get; private set; }
-        public List<Types> SubTypes { get; private set; } = new List<Types>();   // variables that have a underlying type such as lists. This is list because there can be more than one underlying type (e.g. dictionary, tuple, etc.)
+        public IEnumerable<Types>? SubTypes { get; private set; } = new List<Types>();   // variables that have a underlying type such as lists. This is list because there can be more than one underlying type (e.g. dictionary, tuple, etc.)
         public object? Value { get; set; }
         public string Scope { get; set; }
 
@@ -17,6 +17,14 @@
             Type = type;
             Value = value;
             Scope = scope;
+        }
+
+        public Variable(EBuildIn.Types type, IEnumerable<Types> subTypes, object? value, string scope = "")
+        {
+            Type = type;
+            Value = value;
+            Scope = scope;
+            SubTypes = subTypes;
         }
     }
 }

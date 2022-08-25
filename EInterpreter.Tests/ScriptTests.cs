@@ -15,9 +15,9 @@ namespace EInterpreter.Tests
         [DataRow(new[] { "Hello World!" }, "hello_world_assignment.e")]
         [DataRow(new[] { "Hello World!" }, "hello_world_if.e")]
         [DataRow(new[] { "Hello World!" }, "hello_world_while.e")]
-        [DataRow(new[] { "42","84","63"}, "number_addition.e")]
-        [DataRow(new[] { "420", "6", "3"  }, "number_calculus.e")]
         [DataRow(new[] { "Hello World!" }, "number_equality.e")]
+        [DataRow(new[] { "42", "84", "63" }, "number_addition.e")]
+        [DataRow(new[] { "420", "6", "3" }, "number_calculus.e")]
         [DataRow(new[] { "1", "Fizz", "Buzz", "FizzBuzz", "98" }, "fizzbuzz_while.e")]
         public void TestWorkerFullScripts(string[] shouldContain, string name)
         {
@@ -29,7 +29,7 @@ namespace EInterpreter.Tests
                 $"TestScripts\\{name}");
             var lines = File.ReadAllLines(path);
 
-            var shouldContainComplete = shouldContain.Concat(new[] { $"Pre-validation for `{name}` successful", $"Post-validation for `{name}` successful", "ran for", "returned"});
+            var shouldContainComplete = shouldContain.Concat(new[] { $"Pre-validation for `{name}` successful", $"Post-validation for `{name}` successful", "ran for", "returned" });
 
             // act
             worker.Go(lines, name);

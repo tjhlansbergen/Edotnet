@@ -103,14 +103,27 @@ namespace EInterpreter.Engine
 
         private void _handleDeclaration(EDeclaration declaration, string scope)
         {
-            if(!Enum.TryParse<Types>(declaration.Prop.Type, out Types type))
+            if (!Enum.TryParse<Types>(declaration.Prop.Type, out Types type))
             {
                 // at some point we will have to consider user types here aswel
                 throw new EngineException($"Declaration with unknown type: {declaration.Prop.Type}");
             }
 
-            var var = new Variable(type, null, scope);
+            // check for subtypes
+            var subTypes = new List<Types>();
+            foreach (var sb in declaration.SubTypes)
+            {
+                if (!Enum.TryParse<Types>(sb, out Types subType))
+                {
+                    // at some point we will have to consider user types here aswel
+                    throw new EngineException($"Declaration with unknown type: {declaration.Prop.Type}");
+                }
+                subTypes.Add(subType);
+            }
+
+            var var = new Variable(type, subTypes, null, scope);
             var.Name = declaration.Name;
+            
             _stack.Add(var);
         }
 

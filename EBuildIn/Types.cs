@@ -6,7 +6,6 @@
         Boolean,
         Number,
         Text,
-        
-        //TODO List<>
+        List,
     }
 }
