@@ -8,14 +8,15 @@ namespace EBuildIn
     {
         private static readonly string namespac = "EBuildIn";
 
-        public static List<string>? FindFunctionAndReturnParameters(string module, string function)
+        public static List<Types>? FindFunctionAndReturnParameters(string module, string function)
         {
             if(module == "Modules" || module == "Types") { return null; }
 
             function += "Parameters";
             var type = Type.GetType($"{namespac}.{module}");
             var propertyInfo = type?.GetProperty(function, BindingFlags.Static | BindingFlags.Public | BindingFlags.GetProperty);
-            return (List<string>)propertyInfo?.GetValue(null);
+
+            return (List<Types>)propertyInfo?.GetValue(null);
         }
 
         public static Variable Run(string module, string function, object[] parameters)

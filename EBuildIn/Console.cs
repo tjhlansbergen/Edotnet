@@ -5,9 +5,9 @@ namespace EBuildIn
 {
     public static class Console
     {
-        public static List<string> WriteTextParameters => new List<string> { Types.Text.ToString() };
-        public static List<string> WriteNumberParameters => new List<string> { Types.Number.ToString() };
-        public static List<string> WriteBooleanParameters => new List<string> { Types.Boolean.ToString() };
+        public static List<Types> WriteTextParameters => new List<Types> { Types.Text };
+        public static List<Types> WriteNumberParameters => new List<Types> { Types.Number };
+        public static List<Types> WriteBooleanParameters => new List<Types> { Types.Boolean };
 
         public static Variable WriteText(Variable text)
         {

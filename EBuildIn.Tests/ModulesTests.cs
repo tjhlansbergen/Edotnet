@@ -13,7 +13,7 @@ namespace EBuildIn.Tests
 
             // assert
             Assert.AreEqual(1, result.Count);
-            Assert.AreEqual("Text", result.Single());
+            Assert.AreEqual(Types.Text, result.Single());
         }
 
         [TestMethod]

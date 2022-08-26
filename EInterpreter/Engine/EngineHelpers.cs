@@ -31,7 +31,7 @@ namespace EInterpreter.Engine
             return match;
         }
 
-        public static bool MatchParameters(List<Variable> callerParameters, List<string> targetParameterTypes)
+        public static bool MatchParameters(List<Variable> callerParameters, List<Types> targetParameterTypes)
         {
             // invalid call
             if (callerParameters == null || targetParameterTypes == null) { return false; }
@@ -39,7 +39,7 @@ namespace EInterpreter.Engine
             // first, check the number of parameters
             if (callerParameters.Count != targetParameterTypes.Count) { return false; }
 
-            return !callerParameters.Where((t, i) => t.Type.ToString() != targetParameterTypes[i]).Any();
+            return !callerParameters.Where((t, i) => t.Type != targetParameterTypes[i]).Any();
         }
     }
 }

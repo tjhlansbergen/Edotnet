@@ -4,8 +4,8 @@ namespace EBuildIn
 {
     public static class Text
     {
-        public static List<string> AppendParameters => new List<string> { Types.Text.ToString(), Types.Text.ToString() };
-        public static List<string> EqualsParameters => new List<string> { Types.Text.ToString(), Types.Text.ToString() };
+        public static List<Types> AppendParameters => new List<Types> { Types.Text, Types.Text };
+        public static List<Types> EqualsParameters => new List<Types> { Types.Text, Types.Text };
 
         public static Variable Append(Variable var, Variable value)
         {

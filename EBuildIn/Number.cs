@@ -6,18 +6,18 @@ namespace EBuildIn
 {
     public static class Number
     {
-        public static List<string> AddParameters => new List<string> { Types.Number.ToString(), Types.Number.ToString() };
-        public static List<string> SubtractParameters => new List<string> { Types.Number.ToString(), Types.Number.ToString() };
-        public static List<string> MultiplyParameters => new List<string> { Types.Number.ToString(), Types.Number.ToString() };
-        public static List<string> DivideParameters => new List<string> { Types.Number.ToString(), Types.Number.ToString() };
-        public static List<string> RemainderParameters => new List<string> { Types.Number.ToString(), Types.Number.ToString() };
+        public static List<Types> AddParameters => new List<Types> { Types.Number, Types.Number };
+        public static List<Types> SubtractParameters => new List<Types> { Types.Number, Types.Number };
+        public static List<Types> MultiplyParameters => new List<Types> { Types.Number, Types.Number };
+        public static List<Types> DivideParameters => new List<Types> { Types.Number, Types.Number };
+        public static List<Types> RemainderParameters => new List<Types> { Types.Number, Types.Number };
         
-        public static List<string> AreEqualParameters => new List<string> { Types.Number.ToString(), Types.Number.ToString() };
-        public static List<string> NotEqualParameters => new List<string> { Types.Number.ToString(), Types.Number.ToString() };
-        public static List<string> LessThenParameters => new List<string> { Types.Number.ToString(), Types.Number.ToString() };
-        public static List<string> GreaterThenParameters => new List<string> { Types.Number.ToString(), Types.Number.ToString() };
+        public static List<Types> AreEqualParameters => new List<Types> { Types.Number, Types.Number };
+        public static List<Types> NotEqualParameters => new List<Types> { Types.Number, Types.Number };
+        public static List<Types> LessThenParameters => new List<Types> { Types.Number, Types.Number };
+        public static List<Types> GreaterThenParameters => new List<Types> { Types.Number, Types.Number };
 
-        public static List<string> ToTextParameters => new List<string> { Types.Number.ToString() };
+        public static List<Types> ToTextParameters => new List<Types> { Types.Number };
 
         public static Variable Add(Variable var, Variable value)
         {
