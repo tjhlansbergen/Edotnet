@@ -4,7 +4,7 @@ Utility Program
 {
 	Function Boolean Start(Text arguments)
 	{
-		Console:WriteText("Before if");
+		Console:WriteLine("Before if");
 
 		new Boolean enterIf;
 
@@ -12,7 +12,7 @@ Utility Program
 		
 		if(enterIf)
 		{
-			Console:WriteText("in if 1!");
+			Console:WriteLine("in if 1!");
 			return true;
 		}
 
@@ -20,12 +20,12 @@ Utility Program
 
 		if(enterIf)
 		{
-			Console:WriteText("in if 2!");
+			Console:WriteLine("in if 2!");
 			//return true;
 		}
 		
-		Console:WriteText("after if!");
-		Console:WriteText("Hello World!");
+		Console:WriteLine("after if!");
+		Console:WriteLine("Hello World!");
 		
 		return true;
 	}

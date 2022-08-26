@@ -41,7 +41,7 @@ Utility Program
 				message = Number:ToText(count);
 			}
 
-			Console:WriteText(message);	
+			Console:WriteLine(message);	
 		}
 
 		return true;

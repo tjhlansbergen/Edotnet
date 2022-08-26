@@ -13,15 +13,15 @@ Utility Program
 		new Boolean equal;
 
 		equal = Number:AreEqual(someNumber, someOtherNumber);
-		Console:WriteBoolean(equal);
+		Console:WriteLine(equal);
 
 		someOtherNumber = 42;
 		equal = Number:AreEqual(someNumber, someOtherNumber);
-		Console:WriteBoolean(equal);
+		Console:WriteLine(equal);
 
 		if(equal)
 		{
-			Console:WriteText("Hello World!");
+			Console:WriteLine("Hello World!");
 		}
 
 		return true;

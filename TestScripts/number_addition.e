@@ -8,14 +8,14 @@ Utility Program
 		new Number someOtherNumber;
 		
 		someNumber = 42;
-		Console:WriteNumber(someNumber);
+		Console:WriteLine(someNumber);
 
 		someOtherNumber = Number:Add(someNumber, 42);
-		Console:WriteNumber(someNumber);
-		Console:WriteNumber(someOtherNumber);
+		Console:WriteLine(someNumber);
+		Console:WriteLine(someOtherNumber);
 
 		someOtherNumber = Number:Subtract(someOtherNumber, 21);
-		Console:WriteNumber(someOtherNumber);
+		Console:WriteLine(someOtherNumber);
 	
 		return true;
 	}

@@ -8,18 +8,18 @@ Utility Program
 		
 		lineToWrite = "Hello World!";		
 
-		Console:WriteText(lineToWrite);
+		Console:WriteLine(lineToWrite);
 
 		// part two
 		new Number someNumber;
 		someNumber = 42;
 
-		Console:WriteNumber(someNumber);
+		Console:WriteLine(someNumber);
 
 		new Number someOtherNumber;
 		someOtherNumber = someNumber;
 
-		Console:WriteNumber(someOtherNumber);
+		Console:WriteLine(someOtherNumber);
 
 		return true;
 	}

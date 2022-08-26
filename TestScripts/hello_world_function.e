@@ -10,7 +10,7 @@ Utility Program
 	
 	Function Boolean HelloWorld()
 	{
-		Console:WriteText("Hello World!");
+		Console:WriteLine("Hello World!");
 		return true;
 	}
 }

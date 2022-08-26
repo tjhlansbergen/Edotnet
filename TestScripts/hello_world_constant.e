@@ -11,7 +11,7 @@ Utility Program
 	
 	Function Boolean HelloWorld()
 	{
-		Console:WriteText(line);
+		Console:WriteLine(line);
 		return true;
 	}
 }

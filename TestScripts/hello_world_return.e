@@ -4,7 +4,7 @@ Utility Program
 {
 	Function Boolean Start(Text arguments)
 	{
-		Console:WriteText(Program:GetLine());
+		Console:WriteLine(Program:GetLine());
 		return true;
 	}
 	

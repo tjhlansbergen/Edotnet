@@ -7,7 +7,7 @@ Utility Program
 
         new List<Number> numbers;
 
-		Console:WriteText("Hello World!");
+		Console:WriteLine("Hello World!");
 		return true;
 	}
 }

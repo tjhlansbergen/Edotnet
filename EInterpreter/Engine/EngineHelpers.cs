@@ -39,7 +39,8 @@ namespace EInterpreter.Engine
             // first, check the number of parameters
             if (callerParameters.Count != targetParameterTypes.Count) { return false; }
 
-            return !callerParameters.Where((t, i) => t.Type != targetParameterTypes[i]).Any();
+            // see if the parameters match, or is generic (T)
+            return !callerParameters.Where((t, i) => t.Type != targetParameterTypes[i] && Types.T != targetParameterTypes[i]).Any();
         }
     }
 }

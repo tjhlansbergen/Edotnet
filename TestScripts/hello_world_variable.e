@@ -7,11 +7,11 @@ Utility Program
 		new Text lineToWrite;
 
 		lineToWrite = "Hello World";
-		Console:WriteText(lineToWrite);
+		Console:WriteLine(lineToWrite);
 
 		
 		Text:Append(lineToWrite, "!");
-		Console:WriteText(lineToWrite);
+		Console:WriteLine(lineToWrite);
 
 		return true;
 	}

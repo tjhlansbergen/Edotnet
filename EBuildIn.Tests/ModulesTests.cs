@@ -9,11 +9,11 @@ namespace EBuildIn.Tests
         public void TestFindFound()
         {
             // act
-            var result = EBuildIn.Modules.FindFunctionAndReturnParameters("Console", "WriteText");
+            var result = EBuildIn.Modules.FindFunctionAndReturnParameters("Console", "WriteLine");
 
             // assert
             Assert.AreEqual(1, result.Count);
-            Assert.AreEqual(Types.Text, result.Single());
+            Assert.AreEqual(Types.T, result.Single());
         }
 
         [TestMethod]
