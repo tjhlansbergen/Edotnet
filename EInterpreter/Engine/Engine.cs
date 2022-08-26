@@ -198,7 +198,7 @@ namespace EInterpreter.Engine
                 return Modules.Run(call.Parent, call.Name, parameters.ToArray());
             }
 
-            throw new EngineException($"Invalid function call: {call.FullName}");
+            throw new EngineException($"Invalid function call: {call.Parent}:{call.Name}");
         }
 
 

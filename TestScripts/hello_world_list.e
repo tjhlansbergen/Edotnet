@@ -7,7 +7,9 @@ Utility Program
 
         new List<Number> numbers;
 
-		Console:WriteLine("Hello World!");
+		List:Add(numbers, 1);
+
+		Console:WriteLine(List:First(numbers));
 		return true;
 	}
 }
