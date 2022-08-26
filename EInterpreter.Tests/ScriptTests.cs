@@ -26,7 +26,7 @@ namespace EInterpreter.Tests
             var worker = new Worker(stringWriter);
 
             var path = Path.Combine(new DirectoryInfo(Environment.CurrentDirectory).Parent?.Parent?.Parent?.Parent?.FullName,
-                $"TestScripts\\{name}");
+                $"TestScripts//{name}");
             var lines = File.ReadAllLines(path);
 
             var shouldContainComplete = shouldContain.Concat(new[] { $"Pre-validation for `{name}` successful", $"Post-validation for `{name}` successful", "ran for", "returned" });
