@@ -7,6 +7,7 @@ namespace EBuildIn
     {
         public static List<Types> AddParameters => new List<Types> { Types.List, Types.T };
         public static List<Types> FirstParameters => new List<Types> { Types.List };
+        public static List<Types> GetParameters => new List<Types> { Types.List, Types.Number };
 
         public static Variable Add(Variable list, Variable var)
         {
@@ -24,6 +25,11 @@ namespace EBuildIn
         public static Variable First(Variable list)
         {
             return new Variable(list.SubTypes.First(), ((List<object>)list.Value).FirstOrDefault());
+        }
+
+        public static Variable Get(Variable list, Variable index)
+        {
+            return new Variable(list.SubTypes.First(), ((List<object>)list.Value)[Convert.ToInt32(index.Value)]);
         }
     }
 }

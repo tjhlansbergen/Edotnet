@@ -222,5 +222,25 @@ namespace EInterpreter.Tests
             // assert
             Assert.ThrowsException<ParserException>(() => Parsers.ParseReturnStatement(line));
         }
+
+        [TestMethod]
+        [DataRow("Hi I have one , real comma at index 15", new [] {14})]
+        [DataRow("\",\"", new int[] {})]
+        [DataRow("\",\",", new [] {3})]
+        [DataRow("List:Get(numbers, 1)", new int [] {})]
+        [DataRow("Console:Write(\",\")", new int [] {})]
+        [DataRow("Console:Write(\",\", 1)", new int [] {})]
+        [DataRow("Console:Write(\",\", 1), 1", new int [] {21})]
+        [DataRow("a, b", new [] {1})]
+        [DataRow("a, b, c", new [] {1, 4})]
+        [DataRow("a, \"b,,,\", c", new [] {1, 9})]
+        public void TestGetRealCommas(string line, int[] indices)
+        {
+            // act
+            var result = Parsers.GetRealCommas(line);
+
+            // assert
+            CollectionAssert.AreEqual(result, indices, $" testcase: {line}");
+        }
     }
 }

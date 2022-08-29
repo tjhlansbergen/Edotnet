@@ -1,4 +1,5 @@
 ﻿using EInterpreter.EElements;
+using System.Text;
 
 namespace EInterpreter.Lexing
 {
@@ -126,7 +127,13 @@ namespace EInterpreter.Lexing
 
             if (parameterString.Length > 1)
             {
-                foreach (var p in parameterString.SplitClean(','))
+                // commas are a difficult case here, they may denote multiple parameters, but could be part of a chained function call
+                // ideally we should tokenize such chained calls, for now we traverse them at runtime
+                // ugly hack: find commas that are not part of a chained call, replace them and split on the replacement
+                // note that we also have to take quotes into account...
+                var indices = GetRealCommas(parameterString);
+                
+                foreach (var p in parameterString.SplitAt(indices))
                 {
                     parameters.Add(p.Trim());
                 }
@@ -147,6 +154,25 @@ namespace EInterpreter.Lexing
         {
             if(!line.Contains("=")) { throw new ParserException("Unparseble assignment"); }
             return new EAssignment(line.SplitClean('=')[0].Trim(), line.SplitClean('=')[1].SplitClean(';')[0].Trim());
+        }
+
+        // Gets indices of all commas that are NOT wrapped in doublequotes or round brackets
+        public static int[] GetRealCommas(string input)
+        {
+            bool inQuotes = false, inBrackets = false;
+            var count = 0;
+            var result = new List<int>();
+
+            foreach (var c in input)
+            {
+                if (c == '"') { inQuotes = !inQuotes; }
+                if (c == '(' && !inQuotes) { inBrackets = true; }
+                if (c == ')' && !inQuotes) { inBrackets = false; }
+                if (c == ',' && !inQuotes && !inBrackets) { result.Add(count); }
+                count++;
+            }
+
+            return result.ToArray();
         }
     }
 }
