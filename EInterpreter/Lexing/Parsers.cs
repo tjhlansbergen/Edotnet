@@ -129,7 +129,7 @@ namespace EInterpreter.Lexing
             {
                 // commas are a difficult case here, they may denote multiple parameters, but could be part of a chained function call
                 // ideally we should tokenize such chained calls, for now we traverse them at runtime
-                // ugly hack: find commas that are not part of a chained call, replace them and split on the replacement
+                // ugly hack: find commas that are not part of a chained call, split on their indiced
                 // note that we also have to take quotes into account...
                 var indices = GetRealCommas(parameterString);
                 
