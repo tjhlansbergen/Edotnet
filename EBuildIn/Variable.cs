@@ -19,6 +19,14 @@
             Scope = scope;
         }
 
+        public Variable(string name, EBuildIn.Types type, object? value, string scope = "")
+        {
+            Name = name;
+            Type = type;
+            Value = value;
+            Scope = scope;
+        }
+
         public Variable(EBuildIn.Types type, IEnumerable<Types> subTypes, object? value, string scope = "")
         {
             Type = type;

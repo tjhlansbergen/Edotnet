@@ -191,6 +191,24 @@ namespace EInterpreter.Engine
 
         private Variable _handleLoop(EStatement statement, string scope)
         {
+            // validate body
+            var parts = statement.Body.SplitClean(' ');
+            if (parts.Length != 3 || parts[1] != "in") throw new EngineException($"Body of {statement.Type} statement in {scope} is unparsable");
+            
+            // inspect the body
+            var list = _expandParameter(parts[2]);
+            if (list.Type != Types.List) throw new EngineException($"Variable {parts[2]} is used in a foreach loop but is not a list");
+
+            // see if there are items in the list to iterate
+            if (list.Value == null || !((List<object>)list.Value).Any()) { return Variable.Empty; }
+
+            // run the loop, a non-empty variable signals a return
+            foreach(var item in (List<object>)list.Value)
+            {
+                var result = _runBlock(statement, new List<Variable>{new Variable(parts[0], list.Type, item)});
+                if (!result.IsEmpty) return result;
+            }
+
             return Variable.Empty;
         }
 

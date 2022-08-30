@@ -18,10 +18,11 @@ Utility Program
         }
 
 		Console:WriteLine(List:Count(numbers));
+        Console:WriteLine("");
 
         foreach(number in numbers)
         {
-            // do stuff
+            Console:WriteLine(number);
         }
 
 		return true;
