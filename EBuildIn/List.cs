@@ -8,6 +8,7 @@ namespace EBuildIn
         public static List<Types> AddParameters => new List<Types> { Types.List, Types.T };
         public static List<Types> FirstParameters => new List<Types> { Types.List };
         public static List<Types> GetParameters => new List<Types> { Types.List, Types.Number };
+        public static List<Types> CountParameters => new List<Types> { Types.List };
 
         public static Variable Add(Variable list, Variable var)
         {
@@ -30,6 +31,12 @@ namespace EBuildIn
         public static Variable Get(Variable list, Variable index)
         {
             return new Variable(list.SubTypes.First(), ((List<object>)list.Value)[Convert.ToInt32(index.Value)]);
+        }
+
+        public static Variable Count(Variable list)
+        {
+            if(list.Value == null) { return new Variable(Types.Number, 0); }
+            return new Variable(Types.Number, ((List<object>)list.Value).Count);
         }
     }
 }
