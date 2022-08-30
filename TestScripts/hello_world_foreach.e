@@ -17,9 +17,12 @@ Utility Program
             count = Number:Add(count, 1);
         }
 
-		
-
 		Console:WriteLine(List:Count(numbers));
+
+        foreach(number in numbers)
+        {
+            // do stuff
+        }
 
 		return true;
 	}

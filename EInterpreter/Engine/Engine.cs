@@ -150,8 +150,22 @@ namespace EInterpreter.Engine
 
         private Variable _handleStatement(EStatement statement, string scope)
         {
+            switch(statement.Type)
+            {
+                case EStatementType.FOREACH:
+                    return _handleLoop(statement, scope);
+                case EStatementType.IF:
+                case EStatementType.WHILE:
+                default:
+                    return _handleEvaluable(statement, scope);
+                
+            }
+        }
+
+        private Variable _handleEvaluable(EStatement statement, string scope)
+        {
             // evaluate
-            var evaluation = _expandParameter(statement.Evaluable);
+            var evaluation = _expandParameter(statement.Body);
 
             if (evaluation.Type != Types.Boolean) throw new EngineException($"Variable for {statement.Type} statement in {scope} is of type {evaluation.Type}, but a {Types.Boolean} was expected");
             if (evaluation.Value == null) throw new EngineException($"Variable for {statement.Type} statement in {scope} is unassigned");
@@ -169,10 +183,15 @@ namespace EInterpreter.Engine
             // only continue the while if result is empty (meaning a return was not encountered)
             if (statement.Type == EStatementType.WHILE && result.IsEmpty)
             {
-                _handleStatement(statement, scope);
+                _handleEvaluable(statement, scope);
             }
 
             return result;
+        }
+
+        private Variable _handleLoop(EStatement statement, string scope)
+        {
+            return Variable.Empty;
         }
 
         private Variable _handleFunctionCall(EFunctionCall call)

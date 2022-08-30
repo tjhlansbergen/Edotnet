@@ -5,14 +5,14 @@ namespace EInterpreter.EElements
     public class EStatement : EElement, IRunnableBlock
     {
         public EStatementType Type { get; set; }
-        public string Evaluable { get; }
+        public string Body { get; }
 
         public List<EElement> Elements { get; }
 
-        public EStatement(string name, EStatementType type, string evaluable) : base(name)
+        public EStatement(string name, EStatementType type, string body) : base(name)
         {
             Type = type;
-            Evaluable = evaluable;
+            Body = body;
             Elements = new List<EElement>();
         }
     }
