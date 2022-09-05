@@ -16,8 +16,8 @@ namespace EBuildIn.Tests
             EBuildIn.List.Add(list, stri);
             
             // assert
-            Assert.AreEqual(1, ((List<object>)list.Value).Count());
-            Assert.AreEqual("Hi", ((List<object>)list.Value).First());
+            Assert.AreEqual(1, ((List<Variable>)list.Value).Count());
+            Assert.AreEqual("Hi", ((List<Variable>)list.Value).First().Value);
         }
     }
 }

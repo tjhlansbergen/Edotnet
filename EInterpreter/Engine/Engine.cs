@@ -200,12 +200,12 @@ namespace EInterpreter.Engine
             if (list.Type != Types.List) throw new EngineException($"Variable {parts[2]} is used in a foreach loop but is not a list");
 
             // see if there are items in the list to iterate
-            if (list.Value == null || !((List<object>)list.Value).Any()) { return Variable.Empty; }
+            if (list.Value == null || !((List<Variable>)list.Value).Any()) { return Variable.Empty; }
 
             // run the loop, a non-empty variable signals a return
-            foreach(var item in (List<object>)list.Value)
+            foreach(var item in (List<Variable>)list.Value)
             {
-                var result = _runBlock(statement, new List<Variable>{new Variable(parts[0], list.Type, item)});
+                var result = _runBlock(statement, new List<Variable>{new Variable(parts[0], list.Type, item.Value)});
                 if (!result.IsEmpty) return result;
             }
 

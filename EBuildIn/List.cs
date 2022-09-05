@@ -16,28 +16,29 @@ namespace EBuildIn
             if (list.SubTypes?.First() != var.Type) { return new Variable(Types.Boolean, false); }
 
             // ensure list
-            if (list.Value == null) { list.Value = new List<object>(); }
+            if (list.Value == null) { list.Value = new List<Variable>(); }
 
             // add
-            ((List<object>)list.Value).Add(var.Value);
+            ((List<Variable>)list.Value).Add(var);      // this retains the variables name etc if any, not sure about that
             return new Variable(Types.Boolean, true);
         }
 
         public static Variable First(Variable list)
         {
-            return new Variable(list.SubTypes.First(), ((List<object>)list.Value).FirstOrDefault());
+            return (list.Value != null && ((List<Variable>)list.Value).Any())
+                ? ((List<Variable>)list.Value).First()
+                : Variable.Empty;
         }
 
         public static Variable Get(Variable list, Variable index)
         {
-            // TODO: return proper exception instead of crash?
-            return new Variable(list.SubTypes.First(), ((List<object>)list.Value)[Convert.ToInt32(index.Value)]);
+            return ((List<Variable>)list.Value)[Convert.ToInt32(index.Value)];
         }
 
         public static Variable Count(Variable list)
         {
             if(list.Value == null) { return new Variable(Types.Number, 0); }
-            return new Variable(Types.Number, ((List<object>)list.Value).Count);
+            return new Variable(Types.Number, ((List<Variable>)list.Value).Count);
         }
     }
 }

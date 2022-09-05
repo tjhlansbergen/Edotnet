@@ -13,7 +13,10 @@ Utility Program
 
         while(Number:LessThen(count, 10))
         {
-            List:Add(numbers, count);
+            new Number item;
+            item = count;
+
+            List:Add(numbers, item);
             count = Number:Add(count, 1);
         }
 
