@@ -130,7 +130,14 @@ namespace EInterpreter
             }
             catch (Exception ex)
             {
-                throw new EngineException($"Runtime error: {ex.Message}");
+                if (ex is System.Reflection.TargetInvocationException)
+                {
+                    throw new EngineException($"Runtime error: {ex.InnerException.Message}");
+                }
+                else
+                {
+                    throw new EngineException($"Runtime error: {ex.Message}");
+                }
             }
 
             Console.WriteLine();

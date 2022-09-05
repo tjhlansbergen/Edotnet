@@ -30,6 +30,7 @@ namespace EBuildIn
 
         public static Variable Get(Variable list, Variable index)
         {
+            // TODO: return proper exception instead of crash?
             return new Variable(list.SubTypes.First(), ((List<object>)list.Value)[Convert.ToInt32(index.Value)]);
         }
 
