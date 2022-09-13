@@ -13,7 +13,7 @@ namespace EBuildIn.Tests
             // act
             
             // assert
-            Assert.ThrowsException<FileNotFoundException>(() => EBuildIn.File.Read(new Variable(Types.Text, "\file\not\found.txt")));        
+            Assert.ThrowsException<FileNotFoundException>(() => EBuildIn.File.Read(new Variable(Types.Text, "not_found.txt")));        
         }
     }
 }
