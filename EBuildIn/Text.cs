@@ -4,8 +4,17 @@ namespace EBuildIn
 {
     public static class Text
     {
+        public static List<Types> SplitParameters => new List<Types> { Types.Text, Types.Text };
         public static List<Types> AppendParameters => new List<Types> { Types.Text, Types.Text };
         public static List<Types> EqualsParameters => new List<Types> { Types.Text, Types.Text };
+
+        public static Variable Split(Variable text, Variable delimeter)
+        {
+            var splits = ((string)text.Value).Split((string)delimeter.Value);
+            var results = splits.Select(s => new Variable(Types.Text, s)).ToList();
+
+            return new Variable(Types.List, subTypes: new List<Types> { Types.Text }, results);
+        }
 
         public static Variable Append(Variable var, Variable value)
         {
