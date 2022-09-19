@@ -99,7 +99,7 @@ namespace EInterpreter.Lexing
         {
             EObject objct;
 
-            try { objct = Parsers.ParseObject(_getNamespac(), token.Line); }
+            try { objct = Parsers.ParseObject(token.Line); }
             catch { throw new ParserException(_unparsebleMessage("object", token.LineNumber)); }
 
             tree.Objects.Add(objct);

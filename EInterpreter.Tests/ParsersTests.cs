@@ -60,12 +60,12 @@ namespace EInterpreter.Tests
         public void ParsersShouldSucceed_ParseObject(string line)
         {
             // act
-            var result = Parsers.ParseObject("Test.", line);
+            var result = Parsers.ParseObject(line);
 
             // assert
             Assert.IsNotNull(result);
             Assert.IsInstanceOfType(result, typeof(EObject));
-            Assert.AreEqual("Test.Test", result.Name);
+            Assert.AreEqual("Test", result.Name);
         }
 
         [TestMethod]
@@ -76,7 +76,7 @@ namespace EInterpreter.Tests
         public void ParsersShouldFail_ParseObject(string line)
         {
             // assert
-            Assert.ThrowsException<ParserException>(() => Parsers.ParseObject("Test.", line));
+            Assert.ThrowsException<ParserException>(() => Parsers.ParseObject(line));
         }
 
         [TestMethod]

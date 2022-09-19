@@ -18,13 +18,13 @@ namespace EInterpreter.Lexing
             return new EConstant(left.SplitClean(' ')[0], left.SplitClean(' ')[1], right.Split(';')[0]);
         }
 
-        public static EObject ParseObject(string namespac, string line)
+        public static EObject ParseObject(string line)
         {
             var lineArr = line.SplitClean(' ');
 
             if(lineArr.Length != 2 || lineArr[0] != "Object") { throw new ParserException("Unparsable object"); }
 
-            return new EObject(namespac + lineArr[1]);
+            return new EObject(lineArr[1]);
         }
 
         public static EUtility ParseUtility(string namespac, string line)
