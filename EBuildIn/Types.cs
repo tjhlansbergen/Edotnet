@@ -8,5 +8,6 @@
         Number,
         Text,
         List,
+        Object,     // for (variables pointing to) user objects
     }
 }

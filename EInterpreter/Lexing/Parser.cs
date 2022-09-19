@@ -52,7 +52,7 @@ namespace EInterpreter.Lexing
                     _handleObject(token, tree);
                     break;
                 case ETokenType.PROPERTY:
-                    _handleProperty(token);
+                    _handleObjectProperty(token);
                     break;
                 case ETokenType.UTILITY:
                     _handleUtility(token, tree);
@@ -257,20 +257,22 @@ namespace EInterpreter.Lexing
             }
         }
 
-        private void _handleProperty(EToken token)
+        private void _handleObjectProperty(EToken token)
         {
             if (_callStack.Any() && _callStack.Peek() is EObject obj)
             {
-                EProperty prop;
+                // note that we're parsing this as a declaration, 
+                // which makes sense since it effectively is a declaration of a new variable but just as part of an object
+                EDeclaration decl;
 
-                try { prop = Parsers.ParseProperty(token.Line); }
-                catch { throw new ParserException(_unparsebleMessage("property", token.LineNumber)); }
+                try { decl = Parsers.ParseDeclaration(token.Line); }
+                catch { throw new ParserException(_unparsebleMessage("object property", token.LineNumber)); }
 
-                obj.Properties.Add(prop);
+                obj.Properties.Add(decl);
             }
             else
             {
-                throw new ParserException(_unexpectedMessage("property", token.LineNumber));
+                throw new ParserException(_unexpectedMessage("object property", token.LineNumber));
             }
         }
 

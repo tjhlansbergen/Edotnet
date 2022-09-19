@@ -61,10 +61,10 @@ namespace EInterpreter.Tests
                     {
                         new EObject("Test")
                         {
-                            Properties = new List<EProperty>
+                            Properties = new List<EDeclaration>
                             {
-                                new EProperty("test", "Test1"),
-                                new EProperty("test", "Test2")
+                                new EDeclaration("test", "Test1"),
+                                new EDeclaration("test", "Test2")
                             }
                         }
                     }
@@ -87,10 +87,10 @@ namespace EInterpreter.Tests
                 {
                     new EObject("Test")
                     {
-                        Properties = new List<EProperty>
+                        Properties = new List<EDeclaration>
                         {
-                            new EProperty("test", "Test1"),
-                            new EProperty("test", "Test1")
+                            new EDeclaration("test", "Test1"),
+                            new EDeclaration("test", "Test1")
                         }
                     }
                 }

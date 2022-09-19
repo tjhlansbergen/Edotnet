@@ -59,11 +59,6 @@ namespace EInterpreter.Lexing
 
         public static EProperty ParseProperty(string line)
         {
-            if (line.StartsWith("Property"))
-            {
-                line = line.Remove(0, "Property".Length);
-            }
-
             var lineArr = line.SplitClean(' ');
 
             if(lineArr.Length != 2) { throw new ParserException("Unparsable property"); }
@@ -84,7 +79,7 @@ namespace EInterpreter.Lexing
         {
             var lineArr = line.SplitClean(';')[0].SplitClean(' ');
 
-            if(lineArr.Length != 3 || lineArr[0] != "new") { throw new ParserException("Unparsable declaration");}
+            if(lineArr.Length != 3 || (lineArr[0] != "new" && lineArr[0] != "Property")) { throw new ParserException("Unparsable declaration");}
 
             // check for subtypes
             if (lineArr[1].Contains("<") && lineArr[1].Contains(">"))

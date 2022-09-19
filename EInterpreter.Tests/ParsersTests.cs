@@ -34,7 +34,7 @@ namespace EInterpreter.Tests
         }
 
         [TestMethod]
-        [DataRow("Property Boolean Test")]
+        [DataRow("Boolean Test")]
         [DataRow("Number 42")]
         public void ParsersShouldSucceed_ParseProperty(string line)
         {
@@ -48,7 +48,7 @@ namespace EInterpreter.Tests
 
         [TestMethod]
         [DataRow("Test")]
-        [DataRow("Property Test = test")]
+        [DataRow("Test = test")]
         public void ParsersShouldFail_ParseProperty(string line)
         {
             // assert

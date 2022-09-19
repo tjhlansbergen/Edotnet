@@ -4,7 +4,7 @@ namespace EInterpreter.EElements
 {
     public class EObject : EElement
     {
-        public List<EProperty> Properties { get; set; } = new List<EProperty>();
+        public List<EDeclaration> Properties { get; set; } = new List<EDeclaration>();
 
         public EObject(string name) : base(name) { }
     }

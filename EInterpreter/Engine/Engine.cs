@@ -103,33 +103,60 @@ namespace EInterpreter.Engine
 
         private void _handleDeclaration(EDeclaration declaration, string scope)
         {
-            if (!Enum.TryParse<Types>(declaration.Prop.Type, out Types type))
-            {
-                // at some point we will have to consider user types here aswel
-                throw new EngineException($"Declaration with unknown type: {declaration.Prop.Type}");
-            }
+            _stack.Add(_getVariable(declaration, scope));
+        }
 
-            // check for subtypes
-            var subTypes = new List<Types>();
-            foreach (var sb in declaration.SubTypes)
+        private Variable _getVariable(EDeclaration declaration, string scope)
+        {
+            if (Enum.TryParse<Types>(declaration.Prop.Type, out Types type))
             {
-                if (!Enum.TryParse<Types>(sb, out Types subType))
+                // simple (build-in) object
+
+                // check for subtypes
+                var subTypes = new List<Types>();
+                foreach (var sb in declaration.SubTypes)
                 {
-                    // at some point we will have to consider user types here aswel
-                    throw new EngineException($"Declaration with unknown type: {declaration.Prop.Type}");
+                    if (!Enum.TryParse<Types>(sb, out Types subType))
+                    {
+                        // at some point we will have to consider user types here aswel, note that they are currently strongly types, probably need to change that to string
+                        throw new EngineException($"Declaration with unknown type: {declaration.Prop.Type}");
+                    }
+                    subTypes.Add(subType);
                 }
-                subTypes.Add(subType);
+
+                var var = new Variable(type, subTypes, null, scope);
+                var.Name = declaration.Name;
+    
+                return var;
             }
 
-            var var = new Variable(type, subTypes, null, scope);
-            var.Name = declaration.Name;
-            
-            _stack.Add(var);
+
+            if (_tree.Objects.Any(o => o.Name == declaration.Prop.Type))
+            {
+                // user object 
+                var parsedObject = _tree.Objects.Single(o => o.Name == declaration.Prop.Type);
+
+                var userObject = new List<Variable>();
+                foreach (var objectProperty in parsedObject.Properties)
+                {
+                    var objectMember = _getVariable(objectProperty, scope);
+                    userObject.Add(objectMember);
+                }
+
+                var var = new Variable(Types.Object, value: userObject, scope);
+                var.Name = declaration.Name;
+
+                return var;
+            }
+
+            throw new EngineException($"Declaration with unknown type: {declaration.Prop.Type}");
         }
 
         private void _handleAssignment(EAssignment assignment, string scope)
         {
             var result = _expandParameter(assignment.Parameter);
+
+            //TODO: assignment to a user object (eg. myCar.Brand = "vw")
 
             var existingVariable = _stack.SingleOrDefault(v => v.Name == assignment.Name);
             if (existingVariable == null)
@@ -150,7 +177,7 @@ namespace EInterpreter.Engine
 
         private Variable _handleStatement(EStatement statement, string scope)
         {
-            switch(statement.Type)
+            switch (statement.Type)
             {
                 case EStatementType.FOREACH:
                     return _handleLoop(statement, scope);
@@ -158,7 +185,7 @@ namespace EInterpreter.Engine
                 case EStatementType.WHILE:
                 default:
                     return _handleEvaluable(statement, scope);
-                
+
             }
         }
 
@@ -194,7 +221,7 @@ namespace EInterpreter.Engine
             // validate body
             var parts = statement.Body.SplitClean(' ');
             if (parts.Length != 3 || parts[1] != "in") throw new EngineException($"Body of {statement.Type} statement in {scope} is unparsable");
-            
+
             // inspect the body
             var list = _expandParameter(parts[2]);
             if (list.Type != Types.List) throw new EngineException($"Variable {parts[2]} is used in a foreach loop but is not a list");
@@ -203,9 +230,9 @@ namespace EInterpreter.Engine
             if (list.Value == null || !((List<Variable>)list.Value).Any()) { return Variable.Empty; }
 
             // run the loop, a non-empty variable signals a return
-            foreach(var item in (List<Variable>)list.Value)
+            foreach (var item in (List<Variable>)list.Value)
             {
-                var result = _runBlock(statement, new List<Variable>{new Variable(parts[0], list.Type, item.Value)});
+                var result = _runBlock(statement, new List<Variable> { new Variable(parts[0], list.Type, item.Value) });
                 if (!result.IsEmpty) return result;
             }
 
