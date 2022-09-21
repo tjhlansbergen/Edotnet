@@ -126,7 +126,7 @@ namespace EInterpreter.Engine
 
                 var var = new Variable(type, subTypes, null, scope);
                 var.Name = declaration.Name;
-    
+
                 return var;
             }
 
@@ -156,23 +156,44 @@ namespace EInterpreter.Engine
         {
             var result = _expandParameter(assignment.Parameter);
 
-            //TODO: assignment to a user object (eg. myCar.Brand = "vw")
-
+            // test for local variable first
             var existingVariable = _stack.SingleOrDefault(v => v.Name == assignment.Name);
-            if (existingVariable == null)
+            if (existingVariable != null)
             {
-                // don't add to non existing variable, that would be weak typing
-                throw new EngineException($"Attempt to assign value to non-existing variable: {assignment.Name}");
+                if (existingVariable.Type != result.Type)
+                {
+                    // don't assign when types do not match
+                    throw new EngineException($"Cannot assign value of type {result.Type} to variable of type {existingVariable.Type}");
+                }
+
+                existingVariable.Value = result.Value;
+                return;
             }
 
-            if (existingVariable.Type != result.Type)
+            // not a local variable, user object maybe?
+            var parts = assignment.Name.SplitClean('.');
+            
+            if (parts.Length == 2 && _stack.Any(v => v.Type == Types.Object && v.Name == parts[0]))
             {
-                // don't assign when types do not match
-                throw new EngineException($"Cannot assign value of type {result.Type} to variable of type {existingVariable.Type}");
+                var userObject = _stack.Single(v => v.Type == Types.Object && v.Name == parts[0]);
+                var objectVariable = ((List<Variable>)userObject.Value).SingleOrDefault(p => p.Name == parts[1]);
+                
+                if(objectVariable == null)
+                {
+                    throw new EngineException($"Attempt to assign value with name {assignment.Name} to non-existing property of object: {userObject.Name}");        
+                }
+                if(objectVariable.Type != result.Type)
+                {
+                    // don't assign when types do not match
+                    throw new EngineException($"Cannot assign value of type {result.Type} to variable of type {objectVariable.Type} in object {userObject.Name}");
+                }
+
+                objectVariable.Value = result.Value;
+                return;
             }
 
-            existingVariable.Value = result.Value;
-
+            // don't add to non existing variable, that would be weak typing
+            throw new EngineException($"Attempt to assign value to non-existing variable: {assignment.Name}");
         }
 
         private Variable _handleStatement(EStatement statement, string scope)

@@ -14,6 +14,8 @@ Utility Program
         myCar.Brand = "audi";
         myCar.Wheels = 4;
 
+        Console:WriteLine("Assignment done!");
+
 		Console:WriteLine(myCar.Brand);
 		return true;
 	}
