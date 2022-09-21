@@ -9,7 +9,7 @@ namespace EBuildIn.Tests
         public void TestAdd()
         {
             // arrange
-            var list = new Variable(Types.List, subTypes: new List<Types> { Types.Text }, null);
+            var list = new Variable(Types.List, subTypes: new string[] { Types.Text.ToString() }, null);
             var stri = new Variable(Types.Text, "Hi");
 
             // act

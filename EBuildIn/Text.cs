@@ -13,7 +13,7 @@ namespace EBuildIn
             var splits = ((string)text.Value).Split((string)delimeter.Value);
             var results = splits.Select(s => new Variable(Types.Text, s)).ToList();
 
-            return new Variable(Types.List, subTypes: new List<Types> { Types.Text }, results);
+            return new Variable(Types.List, subTypes: new string[] { Types.Text.ToString() }, results);
         }
 
         public static Variable Append(Variable var, Variable value)

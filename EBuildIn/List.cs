@@ -13,7 +13,10 @@ namespace EBuildIn
         public static Variable Add(Variable list, Variable var)
         {
             // test for type mismatch
-            if (list.SubTypes?.First() != var.Type) { return new Variable(Types.Boolean, false); }
+            if (list.SubTypes?.First() != var.Type.ToString() && (list.SubTypes?.First() != var.SubTypes?.First() && !string.IsNullOrEmpty(var.SubTypes?.First())))
+            { 
+                throw new Exception($"Type mismatch when adding value to list: {list.Name}"); 
+            }
 
             // ensure list
             if (list.Value == null) { list.Value = new List<Variable>(); }

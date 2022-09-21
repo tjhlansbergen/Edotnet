@@ -15,7 +15,7 @@ namespace EBuildIn
         public static Variable ReadLines(Variable path)
         {
             var lines = System.IO.File.ReadAllLines((string)path.Value);
-            return new Variable(Types.List, new List<Types> { Types.Text }, lines.Cast<object>().ToList());
+            return new Variable(Types.List, new string[] { Types.Text.ToString() }, lines.Cast<object>().ToList());
         }
     }
 }

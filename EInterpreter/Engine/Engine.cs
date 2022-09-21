@@ -113,15 +113,15 @@ namespace EInterpreter.Engine
                 // simple (build-in) object
 
                 // check for subtypes
-                var subTypes = new List<Types>();
+                var subTypes = new List<string>();
                 foreach (var sb in declaration.SubTypes)
                 {
-                    if (!Enum.TryParse<Types>(sb, out Types subType))
+                    // test if it is either a build-in or a user object
+                    if (!Enum.TryParse<Types>(sb, out _) && !_tree.Objects.Any(o => o.Name == sb))
                     {
-                        // at some point we will have to consider user types here aswel, note that they are currently strongly types, probably need to change that to string
                         throw new EngineException($"Declaration with unknown type: {declaration.Prop.Type}");
                     }
-                    subTypes.Add(subType);
+                    subTypes.Add(sb);
                 }
 
                 var var = new Variable(type, subTypes, null, scope);
@@ -143,7 +143,7 @@ namespace EInterpreter.Engine
                     userObject.Add(objectMember);
                 }
 
-                var var = new Variable(Types.Object, value: userObject, scope);
+                var var = new Variable(Types.Object, subTypes: new string[] { parsedObject.Name }, value: userObject, scope);
                 var.Name = declaration.Name;
 
                 return var;
@@ -253,7 +253,22 @@ namespace EInterpreter.Engine
             // run the loop, a non-empty variable signals a return
             foreach (var item in (List<Variable>)list.Value)
             {
-                var result = _runBlock(statement, new List<Variable> { new Variable(parts[0], list.Type, item.Value) });
+                Variable result;
+                if (Enum.TryParse<Types>(list.SubTypes?.First(), out Types type))
+                {
+                    // list of simple type
+                    result = _runBlock(statement, new List<Variable> { new Variable(parts[0], list.Type, item.Value) });
+                }
+                else
+                {
+                    // list of object
+                    var var = new Variable(Types.Object, subTypes: list.SubTypes, item.Value);
+                    var.Name = parts[0]; 
+                    result = _runBlock(statement, new List<Variable> { var });
+                }
+
+                // TODO list of list?
+                
                 if (!result.IsEmpty) return result;
             }
 
