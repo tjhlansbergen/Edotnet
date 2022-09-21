@@ -15,6 +15,7 @@ namespace EInterpreter.Tests
         [DataRow(new[] { "Hello World!" }, "hello_world_assignment.e")]
         [DataRow(new[] { "Hello World!" }, "hello_world_if.e")]
         [DataRow(new[] { "Hello World!" }, "hello_world_while.e")]
+        [DataRow(new[] { "Audi", "4", "Porsche", "2" }, "hello_world_object.e")]
         [DataRow(new[] { "10", " ", "8", "9" }, "hello_world_foreach.e")]
         [DataRow(new[] { "1", "2" }, "hello_world_list.e")]
         [DataRow(new[] { "Hello World!" }, "number_equality.e")]

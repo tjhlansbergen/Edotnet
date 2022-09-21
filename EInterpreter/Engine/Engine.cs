@@ -306,6 +306,14 @@ namespace EInterpreter.Engine
             // not some literal value, it can be a variable
             if (_stack.Exists(v => v.Name == parameter)) { return _stack.Single(v => v.Name == parameter); }
 
+            // not a local variable, an object property maybe?
+            var parts = parameter.SplitClean('.');
+            if (parts.Length == 2 && _stack.Any(v => v.Type == Types.Object && v.Name == parts[0]))
+            {
+                var userObjectVariables = (List<Variable>)_stack.Single(v => v.Type == Types.Object && v.Name == parts[0]).Value;
+                if (userObjectVariables.Exists(p => p.Name == parts[1])) { return userObjectVariables.Single(p => p.Name == parts[1]); }
+            }
+
             // also not a variable, a function call then? if so call it inline and return its return value
             EFunctionCall call;
             try { call = Parsers.ParseFunctionCall(parameter); }
