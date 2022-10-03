@@ -22,22 +22,17 @@ namespace EBuildIn
                 return Variable.Empty;
             }
 
-            var jsonstring = (string)json.Value;
-            var pathstring = (string)path.Value;
-
             JToken? token;
 
             try
             {
-                if (jsonstring.StartsWith("["))
+                if (((string)json.Value).StartsWith("["))
                 {
-                    JArray arr = JArray.Parse(jsonstring);
-                    token = arr.SelectToken(pathstring);
+                    token = JArray.Parse((string)json.Value)?.SelectToken((string)path.Value);
                 }
                 else    // try as object
                 {
-                    JObject obj = JObject.Parse(jsonstring);
-                    token = obj.SelectToken(pathstring);
+                    token = JObject.Parse((string)json.Value)?.SelectToken((string)path.Value);
                 }
             }
             catch
@@ -45,11 +40,14 @@ namespace EBuildIn
                 token = null;
             }
 
-            if (token == null)
-            {
-                return Variable.Empty;
-            }
+            if (token == null) { return Variable.Empty; }
+            return _variableForToken(token);
+        }
 
+        // TODO: multi select with SelectTokens, but that needs some sort of a multi-type collection (a set?)
+
+        private static Variable _variableForToken(JToken token)
+        {
             switch (token.Type)
             {
                 case JTokenType.Integer:
@@ -61,7 +59,5 @@ namespace EBuildIn
                     return new Variable(Types.Text, token.ToString());
             }
         }
-
-        // TODO: multi select with SelectTokens, but that needs some sort of a multi-type collection (a set?)
     }
 }
