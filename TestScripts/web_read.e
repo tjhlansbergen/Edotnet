@@ -10,6 +10,7 @@ Utility Program
         content = Web:Read("https://data.buienradar.nl/2.0/feed/json")
         result = Json:Select(content, "$.forecast.shortterm.forecast");
 
+		Console:WriteLine("Weerbericht:");
 		Console:WriteLine(result);
 		return true;
 	}

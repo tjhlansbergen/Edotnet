@@ -8,7 +8,8 @@ public static class Web
 
     public static Variable Read(Variable url)
     {
-        var content = new WebClient().DownloadString((string)url.Value);
+        var client = new HttpClient();
+        var content = client.GetStringAsync((string)url.Value!).GetAwaiter().GetResult();
         return new Variable(Types.Text, content);
     }
 }

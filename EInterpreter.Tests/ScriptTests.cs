@@ -24,6 +24,7 @@ public class ScriptTests
     [DataRow(new[] { "420", "6", "3" }, "number_calculus.e")]
     [DataRow(new[] { "1", "Fizz", "Buzz", "FizzBuzz", "98" }, "fizzbuzz_while.e")]
     [DataRow(new[] { "Edotnet" }, "directory_test.e")]
+    [DataRow(new[] { "Weerbericht:" }, "web_read.e")]
     public void TestWorkerFullScripts(string[] shouldContain, string name)
     {
         // arrange
