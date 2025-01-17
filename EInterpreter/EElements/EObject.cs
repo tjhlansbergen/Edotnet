@@ -1,11 +1,8 @@
-﻿using System.Collections.Generic;
+﻿namespace EInterpreter.EElements;
 
-namespace EInterpreter.EElements
+public class EObject : EElement
 {
-    public class EObject : EElement
-    {
-        public List<EDeclaration> Properties { get; set; } = new List<EDeclaration>();
+    public List<EDeclaration> Properties { get; set; } = new List<EDeclaration>();
 
-        public EObject(string name) : base(name) { }
-    }
+    public EObject(string name) : base(name) { }
 }

@@ -1,147 +1,145 @@
-﻿using System;
-using EInterpreter.Validation;
+﻿using EInterpreter.Validation;
 using EInterpreter.Lexing;
 
-namespace EInterpreter
+namespace EInterpreter;
+
+public class Worker
 {
-    public class Worker
+    public bool Verbose { get; set; } = true;
+
+    private string _name;
+    private string[] _lines;
+    private ETree _tree;
+
+    public Worker(TextWriter outputChannel = null)
     {
-        public bool Verbose { get; set; } = true;
+        // divert output if requested
+        if (outputChannel != null) Console.SetOut(outputChannel);
+    }
 
-        private string _name;
-        private string[] _lines;
-        private ETree _tree;
+    public void Go(string[] lines, string name)
+    {
+        _tree = null;
+        _lines = lines;
+        _name = name;
 
-        public Worker(TextWriter outputChannel = null)
+        Console.WriteLine();
+        Extensions.WriteColoredLine("XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", ConsoleColor.Magenta);
+        Console.WriteLine();
+
+        try
         {
-            // divert output if requested
-            if (outputChannel != null) Console.SetOut(outputChannel);
+            _preValidate();
+            _lex();
+            _postValidate();
+            _runEngine();
+        }
+        catch (Exception ex)
+        {
+            Extensions.WriteColoredLine(ex.Message, ConsoleColor.Red);
         }
 
-        public void Go(string[] lines, string name)
+
+        Console.WriteLine();
+        Extensions.WriteColoredLine("XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", ConsoleColor.Magenta);
+        Console.WriteLine();
+    }
+
+    private void _preValidate()
+    {
+        Extensions.WriteColoredLine("Pre-validation: ", ConsoleColor.DarkCyan);
+
+        var validator = new PreValidator(new List<IPreValidationStep>
         {
-            _tree = null;
-            _lines = lines;
-            _name = name;
-
-            Console.WriteLine();
-            Extensions.WriteColoredLine("XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", ConsoleColor.Magenta);
-            Console.WriteLine();
-
-            try
-            {
-                _preValidate();
-                _lex();
-                _postValidate();
-                _runEngine();
-            }
-            catch (Exception ex)
-            {
-                Extensions.WriteColoredLine(ex.Message, ConsoleColor.Red);
-            }
-
-
-            Console.WriteLine();
-            Extensions.WriteColoredLine("XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", ConsoleColor.Magenta);
-            Console.WriteLine();
-        }
-
-        private void _preValidate()
-        {
-            Extensions.WriteColoredLine("Pre-validation: ", ConsoleColor.DarkCyan);
-
-            var validator = new PreValidator(new List<IPreValidationStep>
-            {
-                new HasValidLineEndsStep(),
-                new HasMatchingQuotes(),
-                new HasMatchingBraces(),
-                new ContainsProgramUtility(),
-                new ContainsStartFunction(),
-                new BlockOpeningsOk(),
-                new BlockDeclarationsOk(),
-                new ConstantsOk(),
-                new PropertiesOk(),
-                new AssignemtnsOk(),
-            });
-                
-            var preValidationResult = validator.Validate(_lines);
-
-            if (Verbose)
-            {
-                foreach (var validationStepResult in validator.Results)
-                {
-                    Extensions.WriteColoredLine(" - " + validationStepResult.Output, validationStepResult.Valid ? ConsoleColor.DarkGreen : ConsoleColor.Red);
-                }
-            }
-
-            Console.WriteLine();
-            Console.WriteLine(preValidationResult ? $"Pre-validation for `{_name}` successful" : $"Pre-validation for {_name} failed!");
-            Console.WriteLine();
-            if(preValidationResult == false) { throw new PreValidationException("EInterpreter stopped before execution because of failing Pre-validation");}
-        }
-
-        private void _lex()
-        {
-            Extensions.WriteColoredLine("Lexing: ", ConsoleColor.DarkCyan);
-            _tree = new Lexer().GetTree(_lines);
-            if (_tree != null)
-            {
-                Console.WriteLine(_tree.Summarize());
-                return;
-            }
+            new HasValidLineEndsStep(),
+            new HasMatchingQuotes(),
+            new HasMatchingBraces(),
+            new ContainsProgramUtility(),
+            new ContainsStartFunction(),
+            new BlockOpeningsOk(),
+            new BlockDeclarationsOk(),
+            new ConstantsOk(),
+            new PropertiesOk(),
+            new AssignemtnsOk(),
+        });
             
-            Extensions.WriteColoredLine("The parser did not return an object tree!", ConsoleColor.Red);
-            throw new LexerException("EInterpreter stopped before execution because of a lexer exception");
-        }
+        var preValidationResult = validator.Validate(_lines);
 
-        private void _postValidate()
+        if (Verbose)
         {
-            Extensions.WriteColoredLine("Post-validation: ", ConsoleColor.DarkCyan);
-            var validator = new PostValidator(new List<IPostValidationStep>
+            foreach (var validationStepResult in validator.Results)
             {
-                new GlobalIdentifiersAreUnique(),
-                new ObjectIdentifiersAreUnique(),
-                new UtilityIdentifiersAreUnique()
-            });
-            
-            var postValidationResult = validator.Validate(_tree);
-
-            if (Verbose)
-            {
-                foreach (var validationStepResult in validator.Results)
-                {
-                    Extensions.WriteColoredLine(" - " + validationStepResult.Output, validationStepResult.Valid ? ConsoleColor.DarkGreen : ConsoleColor.Red);
-                }
+                Extensions.WriteColoredLine(" - " + validationStepResult.Output, validationStepResult.Valid ? ConsoleColor.DarkGreen : ConsoleColor.Red);
             }
-
-            Console.WriteLine();
-            Console.WriteLine(postValidationResult ? $"Post-validation for `{_name}` successful" : $"Post-validation for {_name} failed!");
-            Console.WriteLine();
-            if(postValidationResult == false) { throw new PostValidationException("EInterpreter stopped before execution because of failing Post-validation"); }
         }
 
-        private void _runEngine()
+        Console.WriteLine();
+        Console.WriteLine(preValidationResult ? $"Pre-validation for `{_name}` successful" : $"Pre-validation for {_name} failed!");
+        Console.WriteLine();
+        if(preValidationResult == false) { throw new PreValidationException("EInterpreter stopped before execution because of failing Pre-validation");}
+    }
+
+    private void _lex()
+    {
+        Extensions.WriteColoredLine("Lexing: ", ConsoleColor.DarkCyan);
+        _tree = new Lexer().GetTree(_lines);
+        if (_tree != null)
         {
-            var engine = new Engine.Engine();
-
-            try
-            {
-                engine.Run(_tree);
-            }
-            catch (Exception ex)
-            {
-                if (ex is System.Reflection.TargetInvocationException)
-                {
-                    throw new EngineException($"Runtime error: {ex.InnerException.Message}");
-                }
-                else
-                {
-                    throw new EngineException($"Runtime error: {ex.Message}");
-                }
-            }
-
-            Console.WriteLine();
-            Console.WriteLine($"{_name} ran for {engine.Duration.LargestUnit()} and returned {engine.Result}");
+            Console.WriteLine(_tree.Summarize());
+            return;
         }
+        
+        Extensions.WriteColoredLine("The parser did not return an object tree!", ConsoleColor.Red);
+        throw new LexerException("EInterpreter stopped before execution because of a lexer exception");
+    }
+
+    private void _postValidate()
+    {
+        Extensions.WriteColoredLine("Post-validation: ", ConsoleColor.DarkCyan);
+        var validator = new PostValidator(new List<IPostValidationStep>
+        {
+            new GlobalIdentifiersAreUnique(),
+            new ObjectIdentifiersAreUnique(),
+            new UtilityIdentifiersAreUnique()
+        });
+        
+        var postValidationResult = validator.Validate(_tree);
+
+        if (Verbose)
+        {
+            foreach (var validationStepResult in validator.Results)
+            {
+                Extensions.WriteColoredLine(" - " + validationStepResult.Output, validationStepResult.Valid ? ConsoleColor.DarkGreen : ConsoleColor.Red);
+            }
+        }
+
+        Console.WriteLine();
+        Console.WriteLine(postValidationResult ? $"Post-validation for `{_name}` successful" : $"Post-validation for {_name} failed!");
+        Console.WriteLine();
+        if(postValidationResult == false) { throw new PostValidationException("EInterpreter stopped before execution because of failing Post-validation"); }
+    }
+
+    private void _runEngine()
+    {
+        var engine = new Engine.Engine();
+
+        try
+        {
+            engine.Run(_tree);
+        }
+        catch (Exception ex)
+        {
+            if (ex is System.Reflection.TargetInvocationException)
+            {
+                throw new EngineException($"Runtime error: {ex.InnerException.Message}");
+            }
+            else
+            {
+                throw new EngineException($"Runtime error: {ex.Message}");
+            }
+        }
+
+        Console.WriteLine();
+        Console.WriteLine($"{_name} ran for {engine.Duration.LargestUnit()} and returned {engine.Result}");
     }
 }

@@ -1,20 +1,19 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace EBuildIn.Tests
-{
-    [TestClass]
-    public class FileTests
-    {
-        [TestMethod]
-        public void TestReadFileNotFound()
-        {
-            // arrange
+namespace EBuildIn.Tests;
 
-            // act
-            
-            // assert
-            Assert.ThrowsException<FileNotFoundException>(() => EBuildIn.File.Read(new Variable(Types.Text, "not_found.txt")));        
-        }
+[TestClass]
+public class FileTests
+{
+    [TestMethod]
+    public void TestReadFileNotFound()
+    {
+        // arrange
+
+        // act
+        
+        // assert
+        Assert.ThrowsException<FileNotFoundException>(() => EBuildIn.File.Read(new Variable(Types.Text, "not_found.txt")));        
     }
 }
 

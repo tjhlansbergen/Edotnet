@@ -1,53 +1,51 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using System.Collections.Generic;
 using EInterpreter.EElements;
 using EInterpreter.Lexing;
 
-namespace EInterpreter.Tests
+namespace EInterpreter.Tests;
+
+[TestClass]
+public class EngineTests
 {
-    [TestClass]
-    public class EngineTests
+    [TestMethod]
+    public void RunShouldFail()
     {
-        [TestMethod]
-        public void RunShouldFail()
+        // arrange
+        var engine = new EInterpreter.Engine.Engine();
+        var tree = new ETree
         {
-            // arrange
-            var engine = new EInterpreter.Engine.Engine();
-            var tree = new ETree
-            {
-                Constants = new List<EConstant> {new EConstant("test", "Test1", "")},
-                Utilities = new List<EUtility> {new EUtility("Test2")}
-            };
+            Constants = new List<EConstant> {new EConstant("test", "Test1", "")},
+            Utilities = new List<EUtility> {new EUtility("Test2")}
+        };
 
-            // assert
-            Assert.ThrowsException<EInterpreter.EngineException>(() => engine.Run(tree));
-        }
+        // assert
+        Assert.ThrowsException<EInterpreter.EngineException>(() => engine.Run(tree));
+    }
 
-        [TestMethod]
-        public void RunShouldSucceed()
+    [TestMethod]
+    public void RunShouldSucceed()
+    {
+        // arrange
+        var engine = new EInterpreter.Engine.Engine();
+
+        var tree = new ETree
         {
-            // arrange
-            var engine = new EInterpreter.Engine.Engine();
-
-            var tree = new ETree
+            Utilities = new List<EUtility>
             {
-                Utilities = new List<EUtility>
+                new EUtility("Program")
                 {
-                    new EUtility("Program")
+                    Functions = new List<EFunction>
                     {
-                        Functions = new List<EFunction>
+                        new EFunction("Boolean", "Program.Start", new List<EProperty> {new EProperty("Text", "arguments")})
                         {
-                            new EFunction("Boolean", "Program.Start", new List<EProperty> {new EProperty("Text", "arguments")})
-                            {
-                                Elements = { new EReturn("", "true")}
-                            }
+                            Elements = { new EReturn("", "true")}
                         }
                     }
                 }
-            };
+            }
+        };
 
-            // act
-            engine.Run(tree);
-        }
+        // act
+        engine.Run(tree);
     }
 }

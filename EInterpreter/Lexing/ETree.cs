@@ -1,30 +1,29 @@
 ﻿using System.Text;
 using EInterpreter.EElements;
 
-namespace EInterpreter.Lexing
+namespace EInterpreter.Lexing;
+
+public class ETree
 {
-    public class ETree
+    public List<EConstant> Constants { get; set; } = new List<EConstant>();
+    public List<EObject> Objects { get; set; } = new List<EObject>();
+    public List<EUtility> Utilities { get; set; } = new List<EUtility>();
+
+    public List<EFunction> Functions => Utilities.SelectMany(u => u.Functions).ToList();
+
+    public string Summarize()
     {
-        public List<EConstant> Constants { get; set; } = new List<EConstant>();
-        public List<EObject> Objects { get; set; } = new List<EObject>();
-        public List<EUtility> Utilities { get; set; } = new List<EUtility>();
+        var result = new StringBuilder();
 
-        public List<EFunction> Functions => Utilities.SelectMany(u => u.Functions).ToList();
+        // constants
+        result.AppendLine($"Constants: {Constants.Count}");
 
-        public string Summarize()
-        {
-            var result = new StringBuilder();
+        // objects
+        result.AppendLine($"Objects: {Objects.Count}");
 
-            // constants
-            result.AppendLine($"Constants: {Constants.Count}");
+        // utilities
+        result.AppendLine($"Utilities: {Utilities.Count}");
 
-            // objects
-            result.AppendLine($"Objects: {Objects.Count}");
-
-            // utilities
-            result.AppendLine($"Utilities: {Utilities.Count}");
-
-            return result.ToString();
-        }
+        return result.ToString();
     }
 }

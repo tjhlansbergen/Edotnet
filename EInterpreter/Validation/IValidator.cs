@@ -1,11 +1,8 @@
-﻿using System.Collections.Generic;
+﻿namespace EInterpreter.Validation;
 
-namespace EInterpreter.Validation
+public interface IValidator<T>
 {
-    public interface IValidator<T>
-    {
-        List<ValidationStepResult> Results { get; }
-        bool Validate(T content);
+    List<ValidationStepResult> Results { get; }
+    bool Validate(T content);
 
-    }
 }

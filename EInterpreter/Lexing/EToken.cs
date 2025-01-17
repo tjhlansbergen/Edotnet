@@ -1,21 +1,20 @@
-﻿namespace EInterpreter.Lexing
+﻿namespace EInterpreter.Lexing;
+
+public class EToken
 {
-    public class EToken
+    public int LineNumber { get; }
+    public ETokenType Type { get; }
+    public string Line { get; set; }
+
+    public EToken(int linenr, ETokenType type, string line = "")
     {
-        public int LineNumber { get; }
-        public ETokenType Type { get; }
-        public string Line { get; set; }
+        LineNumber = linenr;
+        Type = type;
+        Line = line;
+    }
 
-        public EToken(int linenr, ETokenType type, string line = "")
-        {
-            LineNumber = linenr;
-            Type = type;
-            Line = line;
-        }
-
-        public override string ToString()
-        {
-            return $"{LineNumber}\t{Type}\t{Line}";
-        }
+    public override string ToString()
+    {
+        return $"{LineNumber}\t{Type}\t{Line}";
     }
 }

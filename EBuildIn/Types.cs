@@ -1,13 +1,12 @@
-﻿namespace EBuildIn
+﻿namespace EBuildIn;
+
+public enum Types
 {
-    public enum Types
-    {
-        Empty,
-        T,  // generic, intended for functions that allow multiple types (such as Console:Write(T))
-        Boolean,
-        Number,
-        Text,
-        List,
-        Object,     // for (variables pointing to) user objects
-    }
+    Empty,
+    T,  // generic, intended for functions that allow multiple types (such as Console:Write(T))
+    Boolean,
+    Number,
+    Text,
+    List,
+    Object,     // for (variables pointing to) user objects
 }

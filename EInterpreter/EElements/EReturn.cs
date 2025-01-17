@@ -1,12 +1,11 @@
-﻿namespace EInterpreter.EElements
-{
-    public class EReturn : EElement
-    {
-        public string Parameter { get; }
+﻿namespace EInterpreter.EElements;
 
-        public EReturn(string name, string parameter) : base(name)
-        {
-            Parameter = parameter;
-        }
+public class EReturn : EElement
+{
+    public string Parameter { get; }
+
+    public EReturn(string name, string parameter) : base(name)
+    {
+        Parameter = parameter;
     }
 }

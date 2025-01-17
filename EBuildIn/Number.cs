@@ -1,97 +1,92 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Runtime.CompilerServices;
+﻿namespace EBuildIn;
 
-namespace EBuildIn
+public static class Number
 {
-    public static class Number
+    public static List<Types> AddParameters => new List<Types> { Types.Number, Types.Number };
+    public static List<Types> SubtractParameters => new List<Types> { Types.Number, Types.Number };
+    public static List<Types> MultiplyParameters => new List<Types> { Types.Number, Types.Number };
+    public static List<Types> DivideParameters => new List<Types> { Types.Number, Types.Number };
+    public static List<Types> RemainderParameters => new List<Types> { Types.Number, Types.Number };
+    
+    public static List<Types> AreEqualParameters => new List<Types> { Types.Number, Types.Number };
+    public static List<Types> NotEqualParameters => new List<Types> { Types.Number, Types.Number };
+    public static List<Types> LessThenParameters => new List<Types> { Types.Number, Types.Number };
+    public static List<Types> GreaterThenParameters => new List<Types> { Types.Number, Types.Number };
+
+    public static List<Types> ToTextParameters => new List<Types> { Types.Number };
+
+    public static Variable Add(Variable var, Variable value)
     {
-        public static List<Types> AddParameters => new List<Types> { Types.Number, Types.Number };
-        public static List<Types> SubtractParameters => new List<Types> { Types.Number, Types.Number };
-        public static List<Types> MultiplyParameters => new List<Types> { Types.Number, Types.Number };
-        public static List<Types> DivideParameters => new List<Types> { Types.Number, Types.Number };
-        public static List<Types> RemainderParameters => new List<Types> { Types.Number, Types.Number };
-        
-        public static List<Types> AreEqualParameters => new List<Types> { Types.Number, Types.Number };
-        public static List<Types> NotEqualParameters => new List<Types> { Types.Number, Types.Number };
-        public static List<Types> LessThenParameters => new List<Types> { Types.Number, Types.Number };
-        public static List<Types> GreaterThenParameters => new List<Types> { Types.Number, Types.Number };
+        return Operator(var, value, (x, y) => x + y);
+    }
+    public static Variable Subtract(Variable var, Variable value)
+    {
+        return Operator(var, value, (x, y) => x - y);
+    }
+    public static Variable Divide(Variable var, Variable value)
+    {
+        return Operator(var, value, (x, y) => x / y);
+    }
+    public static Variable Multiply(Variable var, Variable value)
+    {
+        return Operator(var, value, (x, y) => x * y);
+    }
+    public static Variable Remainder(Variable var, Variable value)
+    {
+        return Operator(var, value, (x, y) => x % y);
+    }
 
-        public static List<Types> ToTextParameters => new List<Types> { Types.Number };
+    public static Variable AreEqual(Variable a, Variable b)
+    {
+        return Comparison(a, b, (x, y) => x == y);
+    }
+    public static Variable NotEqual(Variable a, Variable b)
+    {
+        return Comparison(a, b, (x, y) => x != y);
+    }
+    public static Variable LessThen(Variable a, Variable b)
+    {
+        return Comparison(a, b, (x, y) => x < y);
+    }
+    public static Variable GreaterThen(Variable a, Variable b)
+    {
+        return Comparison(a, b, (x, y) => x > y);
+    }
 
-        public static Variable Add(Variable var, Variable value)
-        {
-            return Operator(var, value, (x, y) => x + y);
-        }
-        public static Variable Subtract(Variable var, Variable value)
-        {
-            return Operator(var, value, (x, y) => x - y);
-        }
-        public static Variable Divide(Variable var, Variable value)
-        {
-            return Operator(var, value, (x, y) => x / y);
-        }
-        public static Variable Multiply(Variable var, Variable value)
-        {
-            return Operator(var, value, (x, y) => x * y);
-        }
-        public static Variable Remainder(Variable var, Variable value)
-        {
-            return Operator(var, value, (x, y) => x % y);
-        }
+    public static Variable ToText(Variable a)
+    {
+        return new Variable(Types.Text, a.Value?.ToString());
+    }
 
-        public static Variable AreEqual(Variable a, Variable b)
+    private static Variable Comparison(Variable x, Variable y, Func<double, double, bool> compare)
+    {
+        if (TryConvertValue(x, out double xx) && TryConvertValue(y, out double yy) && compare(xx, yy))
         {
-            return Comparison(a, b, (x, y) => x == y);
+            return new Variable(Types.Boolean, true);
         }
-        public static Variable NotEqual(Variable a, Variable b)
+        else
         {
-            return Comparison(a, b, (x, y) => x != y);
+            return new Variable(Types.Boolean, false);
         }
-        public static Variable LessThen(Variable a, Variable b)
-        {
-            return Comparison(a, b, (x, y) => x < y);
-        }
-        public static Variable GreaterThen(Variable a, Variable b)
-        {
-            return Comparison(a, b, (x, y) => x > y);
-        }
+    }
 
-        public static Variable ToText(Variable a)
-        {
-            return new Variable(Types.Text, a.Value?.ToString());
-        }
+    private static Variable Operator(Variable var, Variable value, Func<double, double, double> operate)
+    {
+        TryConvertValue(value, out var result); 
+        return new Variable(Types.Number, operate((double)var.Value, result));
+    }
 
-        private static Variable Comparison(Variable x, Variable y, Func<double, double, bool> compare)
+    private static bool TryConvertValue(Variable value, out double result)
+    {
+        try
         {
-            if (TryConvertValue(x, out double xx) && TryConvertValue(y, out double yy) && compare(xx, yy))
-            {
-                return new Variable(Types.Boolean, true);
-            }
-            else
-            {
-                return new Variable(Types.Boolean, false);
-            }
+            result = value.Value is double d ? d : Convert.ToDouble(value.Value);
+            return true;
         }
-
-        private static Variable Operator(Variable var, Variable value, Func<double, double, double> operate)
+        catch
         {
-            TryConvertValue(value, out var result); 
-            return new Variable(Types.Number, operate((double)var.Value, result));
-        }
-
-        private static bool TryConvertValue(Variable value, out double result)
-        {
-            try
-            {
-                result = value.Value is double d ? d : Convert.ToDouble(value.Value);
-                return true;
-            }
-            catch
-            {
-                result = double.NaN;
-                return false;
-            }
+            result = double.NaN;
+            return false;
         }
     }
 }

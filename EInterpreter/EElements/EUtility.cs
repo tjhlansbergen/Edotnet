@@ -1,11 +1,8 @@
-﻿using System.Collections.Generic;
+﻿namespace EInterpreter.EElements;
 
-namespace EInterpreter.EElements
+public class EUtility : EElement
 {
-    public class EUtility : EElement
-    {
-        public List<EFunction> Functions { get; set; } = new List<EFunction>();
+    public List<EFunction> Functions { get; set; } = new List<EFunction>();
 
-        public EUtility(string name) : base(name) { }
-    }
+    public EUtility(string name) : base(name) { }
 }

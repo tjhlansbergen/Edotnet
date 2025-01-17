@@ -1,13 +1,12 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace EBuildIn.Tests
+namespace EBuildIn.Tests;
+
+[TestClass]
+public class ConsoleTests
 {
-    [TestClass]
-    public class ConsoleTests
+    [TestMethod]
+    public void TestMethod1()
     {
-        [TestMethod]
-        public void TestMethod1()
-        {
-        }
     }
 }

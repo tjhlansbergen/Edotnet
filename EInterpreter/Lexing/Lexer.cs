@@ -1,29 +1,28 @@
 ﻿
-namespace EInterpreter.Lexing
+namespace EInterpreter.Lexing;
+
+
+/// <summary>
+/// The lexer is responsible for tokenizing and parsing E source code
+/// </summary>
+public class Lexer
 {
+    public List<EToken> Tokens { get; private set; }
 
     /// <summary>
-    /// The lexer is responsible for tokenizing and parsing E source code
+    /// Create a Abstract Source Tree out lines of E source code
     /// </summary>
-    public class Lexer
+    /// <param name="lines">Order array of lines of E source code</param>
+    /// <returns></returns>
+    public ETree GetTree(string[] lines)
     {
-        public List<EToken> Tokens { get; private set; }
+        // tokenize
+        Tokens = new Tokenizer().Tokenize(lines);
 
-        /// <summary>
-        /// Create a Abstract Source Tree out lines of E source code
-        /// </summary>
-        /// <param name="lines">Order array of lines of E source code</param>
-        /// <returns></returns>
-        public ETree GetTree(string[] lines)
-        {
-            // tokenize
-            Tokens = new Tokenizer().Tokenize(lines);
+        // parse
+        var parser = new Parser();
+        var tree = parser.Parse(Tokens);
 
-            // parse
-            var parser = new Parser();
-            var tree = parser.Parse(Tokens);
-
-            return tree;
-        }
+        return tree;
     }
 }

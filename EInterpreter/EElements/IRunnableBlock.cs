@@ -1,10 +1,7 @@
-﻿using System.Collections.Generic;
+﻿namespace EInterpreter.EElements;
 
-namespace EInterpreter.EElements
+public interface IRunnableBlock
 {
-    public interface IRunnableBlock
-    {
-        List<EElement> Elements { get; }
-        string Name { get; }
-    }
+    List<EElement> Elements { get; }
+    string Name { get; }
 }

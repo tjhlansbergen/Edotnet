@@ -1,14 +1,13 @@
-﻿namespace EInterpreter.Validation
-{
-    public readonly struct ValidationStepResult
-    {
-        public readonly bool Valid;
-        public readonly string Output;
+﻿namespace EInterpreter.Validation;
 
-        public ValidationStepResult(bool valid, string output)
-        {
-            Valid = valid;
-            Output = output;
-        }
+public readonly struct ValidationStepResult
+{
+    public readonly bool Valid;
+    public readonly string Output;
+
+    public ValidationStepResult(bool valid, string output)
+    {
+        Valid = valid;
+        Output = output;
     }
 }

@@ -1,12 +1,11 @@
-﻿namespace EInterpreter.EElements
-{
-    public class EElement
-    {
-        public string Name { get; }
+﻿namespace EInterpreter.EElements;
 
-        public EElement(string name)
-        {
-            Name = name;
-        }
+public class EElement
+{
+    public string Name { get; }
+
+    public EElement(string name)
+    {
+        Name = name;
     }
 }

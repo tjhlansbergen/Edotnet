@@ -1,6 +1,5 @@
-﻿namespace EBuildIn
+﻿namespace EBuildIn;
+
+class Boolean
 {
-    class Boolean
-    {
-    }
 }
