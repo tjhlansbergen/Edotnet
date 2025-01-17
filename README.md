@@ -6,7 +6,7 @@
 - Paste path to .e script
 - Enjoy
 
-# Run tests:
+# Running tests:
 From the root directory (the one where this readme is), run `dotnet test -v=quiet`. Expect results like:
 
 ```
