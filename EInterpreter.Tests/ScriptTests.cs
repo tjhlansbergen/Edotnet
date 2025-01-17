@@ -30,8 +30,10 @@ namespace EInterpreter.Tests
             var stringWriter = new StringWriter();
             var worker = new Worker(stringWriter);
 
-            var path = Path.Combine(new DirectoryInfo(Environment.CurrentDirectory).Parent?.Parent?.Parent?.Parent?.FullName,
-                $"TestScripts//{name}");
+            var solutionRootDir = new DirectoryInfo(Environment.CurrentDirectory).Parent?.Parent?.Parent?.Parent?.FullName;
+            if (solutionRootDir == null) throw new DirectoryNotFoundException("Could not find root directory");
+
+            var path = Path.Combine(solutionRootDir, $"TestScripts//{name}");
             var lines = File.ReadAllLines(path);
 
             var shouldContainComplete = shouldContain.Concat(new[] { $"Pre-validation for `{name}` successful", $"Post-validation for `{name}` successful", "ran for", "returned" });
