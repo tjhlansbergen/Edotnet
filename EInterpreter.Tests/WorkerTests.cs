@@ -12,7 +12,7 @@ public class WorkerTests
         var worker = new Worker();
 
         // act
-        worker.Go(new []{"// test"}, "test");
+        worker.Go(["// test"], "test");
 
         // assert
         // nothing to assert, we are just checking if Go eats it's own exceptions at all times
@@ -26,7 +26,7 @@ public class WorkerTests
         var worker = new Worker(stringWriter);
 
         // act
-        worker.Go(new[] { "// test" }, "test");
+        worker.Go(["// test"], "test");
 
         // assert
         Assert.IsFalse(string.IsNullOrEmpty(stringWriter.ToString()));
@@ -41,7 +41,7 @@ public class WorkerTests
         var worker = new Worker(stringWriter);
 
         // act
-        worker.Go(new[] { "// test" }, "test");
+        worker.Go(["// test"], "test");
 
         // assert
         Assert.IsTrue(stringWriter.ToString().Contains(content));

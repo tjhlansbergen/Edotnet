@@ -13,7 +13,7 @@ public class LexerTests
         var lexer = new Lexer();
 
         // act
-        var result = lexer.GetTree(new[] { "// comment" });
+        var result = lexer.GetTree(["// comment"]);
 
         // assert
         Assert.IsNotNull(result);
@@ -27,7 +27,7 @@ public class LexerTests
         var lexer = new Lexer();
 
         // act
-        var result = lexer.GetTree(new[] { "// comment", "Constant Boolean Test = true" });
+        var result = lexer.GetTree(["// comment", "Constant Boolean Test = true"]);
 
         // assert
         Assert.IsNotNull(result);

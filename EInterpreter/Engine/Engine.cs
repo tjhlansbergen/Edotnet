@@ -11,10 +11,10 @@ public class Engine
     public bool Result { get; private set; }
 
     private ETree _tree;
-    private List<Variable> _stack = new List<Variable>();
+    private List<Variable> _stack = [];
 
 
-    public void Run(ETree tree)
+    public void Run(ETree? tree)
     {
         var stopwatch = new Stopwatch();
         stopwatch.Restart();

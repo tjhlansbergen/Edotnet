@@ -10,10 +10,10 @@ public class PreValidationTests
     public void ValidationShouldSucceed_Empty()
     {
         // arrange
-        var validator = new PreValidator(new List<IPreValidationStep>());
+        var validator = new PreValidator([]);
 
         // act
-        var result = validator.Validate(new[] {""});
+        var result = validator.Validate([""]);
 
         // assert
         Assert.IsTrue(result, "Validation should succeed if no steps are specified");
@@ -28,10 +28,10 @@ public class PreValidationTests
     public void ValidationShouldSucceed_HasValidLineEnds(string line)
     {
         // arrange
-        var validator = new PreValidator(new List<IPreValidationStep> { new HasValidLineEndsStep() });
+        var validator = new PreValidator([new HasValidLineEndsStep()]);
 
         // act
-        var result = validator.Validate(new [] { line });
+        var result = validator.Validate([line]);
 
         // assert
         Assert.IsTrue(result);
@@ -42,10 +42,10 @@ public class PreValidationTests
     public void ValidationShouldFail_HasValidLineEnds(string line)
     {
         // arrange
-        var validator = new PreValidator(new List<IPreValidationStep> { new HasValidLineEndsStep() });
+        var validator = new PreValidator([new HasValidLineEndsStep()]);
 
         // act
-        var result = validator.Validate(new[] { line });
+        var result = validator.Validate([line]);
 
         // assert
         Assert.IsFalse(result);
@@ -57,7 +57,7 @@ public class PreValidationTests
     public void ValidationShouldSucceed_HasMatchingQuotes(string[] lines)
     {
         // arrange
-        var validator = new PreValidator(new List<IPreValidationStep> { new HasMatchingQuotes() });
+        var validator = new PreValidator([new HasMatchingQuotes()]);
 
         // act
         var result = validator.Validate(lines);
@@ -72,7 +72,7 @@ public class PreValidationTests
     public void ValidationShouldFail_HasMatchingQuotes(string[] lines)
     {
         // arrange
-        var validator = new PreValidator(new List<IPreValidationStep> { new HasMatchingQuotes() });
+        var validator = new PreValidator([new HasMatchingQuotes()]);
 
         // act
         var result = validator.Validate(lines);
@@ -93,7 +93,7 @@ public class PreValidationTests
     public void ValidationShouldSucceed_HasMatchingBraces(string[] lines)
     {
         // arrange
-        var validator = new PreValidator(new List<IPreValidationStep> { new HasMatchingBraces() });
+        var validator = new PreValidator([new HasMatchingBraces()]);
 
         // act
         var result = validator.Validate(lines);
@@ -111,7 +111,7 @@ public class PreValidationTests
     public void ValidationShouldFail_HasMatchingBraces(string[] lines)
     {
         // arrange
-        var validator = new PreValidator(new List<IPreValidationStep> { new HasMatchingBraces() });
+        var validator = new PreValidator([new HasMatchingBraces()]);
 
         // act
         var result = validator.Validate(lines);
@@ -125,7 +125,7 @@ public class PreValidationTests
     public void ValidationShouldSucceed_ContainsProgramUtility(string[] lines)
     {
         // arrange
-        var validator = new PreValidator(new List<IPreValidationStep> { new ContainsProgramUtility() });
+        var validator = new PreValidator([new ContainsProgramUtility()]);
 
         // act
         var result = validator.Validate(lines);
@@ -142,7 +142,7 @@ public class PreValidationTests
     public void ValidationShouldFail_ContainsProgramUtility(string[] lines)
     {
         // arrange
-        var validator = new PreValidator(new List<IPreValidationStep> { new ContainsProgramUtility() });
+        var validator = new PreValidator([new ContainsProgramUtility()]);
 
         // act
         var result = validator.Validate(lines);
@@ -156,7 +156,7 @@ public class PreValidationTests
     public void ValidationShouldSucceed_ContainsStartFunction(string[] lines)
     {
         // arrange
-        var validator = new PreValidator(new List<IPreValidationStep> { new ContainsStartFunction() });
+        var validator = new PreValidator([new ContainsStartFunction()]);
 
         // act
         var result = validator.Validate(lines);
@@ -171,7 +171,7 @@ public class PreValidationTests
     public void ValidationShouldFail_ContainsStartFunction(string[] lines)
     {
         // arrange
-        var validator = new PreValidator(new List<IPreValidationStep> { new ContainsStartFunction() });
+        var validator = new PreValidator([new ContainsStartFunction()]);
 
         // act
         var result = validator.Validate(lines);
@@ -184,13 +184,13 @@ public class PreValidationTests
     public void ValidationShouldSucceed_BlockOpeningsOk()
     {
         // arrange
-        var validator = new PreValidator(new List<IPreValidationStep> { new BlockOpeningsOk() });
+        var validator = new PreValidator([new BlockOpeningsOk()]);
         var result = false;
 
         // act
         foreach (var block in PreValidator.Blocks)
         {
-            result = validator.Validate(new[] { block, "{" });
+            result = validator.Validate([block, "{"]);
         }
 
         // assert
@@ -206,13 +206,13 @@ public class PreValidationTests
     public void ValidationShouldFail_BlockOpeningsOk(string nextLine)
     {
         // arrange
-        var validator = new PreValidator(new List<IPreValidationStep> { new BlockOpeningsOk() });
+        var validator = new PreValidator([new BlockOpeningsOk()]);
         var result = false;
 
         // act
         foreach (var block in PreValidator.Blocks)
         {
-            result = validator.Validate(new[] { block, nextLine });
+            result = validator.Validate([block, nextLine]);
         }
 
         // assert
@@ -226,10 +226,10 @@ public class PreValidationTests
     public void ValidationShouldSucceed_BlockDeclarationsOk(string block)
     {
         // arrange
-        var validator = new PreValidator(new List<IPreValidationStep> { new BlockDeclarationsOk() });
+        var validator = new PreValidator([new BlockDeclarationsOk()]);
 
         // act
-        var result = validator.Validate(new[] { block });
+        var result = validator.Validate([block]);
         
         // assert
         Assert.IsTrue(result, $"Testcase {block} failed");
@@ -242,10 +242,10 @@ public class PreValidationTests
     public void ValidationShouldFail_BlockDeclarationsOk(string block)
     {
         // arrange
-        var validator = new PreValidator(new List<IPreValidationStep> { new BlockDeclarationsOk() });
+        var validator = new PreValidator([new BlockDeclarationsOk()]);
 
         // act
-        var result = validator.Validate(new[] { block });
+        var result = validator.Validate([block]);
 
         // assert
         Assert.IsFalse(result, $"Testcase {block} failed");
@@ -257,10 +257,10 @@ public class PreValidationTests
     public void ValidationShouldSucceed_ConstantsOk(string constant)
     {
         // arrange
-        var validator = new PreValidator(new List<IPreValidationStep> { new ConstantsOk() });
+        var validator = new PreValidator([new ConstantsOk()]);
 
         // act
-        var result = validator.Validate(new[] { constant });
+        var result = validator.Validate([constant]);
 
         // assert
         Assert.IsTrue(result, $"Testcase {constant} failed");
@@ -273,10 +273,10 @@ public class PreValidationTests
     public void ValidationShouldFail_ConstantsOk(string constant)
     {
         // arrange
-        var validator = new PreValidator(new List<IPreValidationStep> { new ConstantsOk() });
+        var validator = new PreValidator([new ConstantsOk()]);
 
         // act
-        var result = validator.Validate(new[] { constant });
+        var result = validator.Validate([constant]);
 
         // assert
         Assert.IsFalse(result, $"Testcase {constant} failed");
@@ -288,10 +288,10 @@ public class PreValidationTests
     public void ValidationShouldSucceed_PropertiesOk(string prop)
     {
         // arrange
-        var validator = new PreValidator(new List<IPreValidationStep> { new PropertiesOk() });
+        var validator = new PreValidator([new PropertiesOk()]);
 
         // act
-        var result = validator.Validate(new[] { prop });
+        var result = validator.Validate([prop]);
 
         // assert
         Assert.IsTrue(result, $"Testcase {prop} failed");
@@ -303,10 +303,10 @@ public class PreValidationTests
     public void ValidationShouldFail_PropertiesOk(string prop)
     {
         // arrange
-        var validator = new PreValidator(new List<IPreValidationStep> { new PropertiesOk() });
+        var validator = new PreValidator([new PropertiesOk()]);
 
         // act
-        var result = validator.Validate(new[] { prop });
+        var result = validator.Validate([prop]);
 
         // assert
         Assert.IsFalse(result, $"Testcase {prop} failed");

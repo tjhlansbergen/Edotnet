@@ -12,7 +12,7 @@ public class PostValidationTests
     public void ValidationShouldSucceed_Empty()
     {
         // arrange
-        var validator = new PostValidator(new List<IPostValidationStep>());
+        var validator = new PostValidator([]);
 
         // act
         var result = validator.Validate(new ETree());
@@ -25,10 +25,10 @@ public class PostValidationTests
     public void ValidationShouldSucceed_GlobalIdentifiersAreUnique()
     {
         // arrange
-        var validator = new PostValidator(new List<IPostValidationStep>{ new GlobalIdentifiersAreUnique()});
+        var validator = new PostValidator([new GlobalIdentifiersAreUnique()]);
 
         // act
-        var result = validator.Validate(new ETree{Constants = new List<EConstant>{new EConstant("test", "Test1", "")}, Utilities = new List<EUtility>{new EUtility("Test2")}});
+        var result = validator.Validate(new ETree{Constants = [new EConstant("test", "Test1", "")], Utilities = [new EUtility("Test2")]});
 
         // assert
         Assert.IsTrue(result);
@@ -38,10 +38,10 @@ public class PostValidationTests
     public void ValidationShouldFail_GlobalIdentifiersAreUnique()
     {
         // arrange
-        var validator = new PostValidator(new List<IPostValidationStep> { new GlobalIdentifiersAreUnique() });
+        var validator = new PostValidator([new GlobalIdentifiersAreUnique()]);
 
         // act
-        var result = validator.Validate(new ETree { Constants = new List<EConstant> { new EConstant("test", "Test1", "") }, Utilities = new List<EUtility> { new EUtility("Test1") } });
+        var result = validator.Validate(new ETree { Constants = [new EConstant("test", "Test1", "")], Utilities = [new EUtility("Test1")] });
 
         // assert
         Assert.IsFalse(result);
@@ -51,22 +51,22 @@ public class PostValidationTests
     public void ValidationShouldSucceed_ObjectIdentifiersAreUnique()
     {
         // arrange
-        var validator = new PostValidator(new List<IPostValidationStep> { new ObjectIdentifiersAreUnique() });
+        var validator = new PostValidator([new ObjectIdentifiersAreUnique()]);
 
         // act
         var result = validator.Validate(new ETree 
             { 
-                Objects = new List<EObject>
-                {
+                Objects =
+                [
                     new EObject("Test")
                     {
-                        Properties = new List<EDeclaration>
-                        {
+                        Properties =
+                        [
                             new EDeclaration("test", "Test1"),
                             new EDeclaration("test", "Test2")
-                        }
+                        ]
                     }
-                }
+                ]
             });
 
         // assert
@@ -77,22 +77,22 @@ public class PostValidationTests
     public void ValidationShouldFail_ObjectIdentifiersAreUnique()
     {
         // arrange
-        var validator = new PostValidator(new List<IPostValidationStep> { new ObjectIdentifiersAreUnique() });
+        var validator = new PostValidator([new ObjectIdentifiersAreUnique()]);
 
         // act
         var result = validator.Validate(new ETree
         {
-            Objects = new List<EObject>
-            {
+            Objects =
+            [
                 new EObject("Test")
                 {
-                    Properties = new List<EDeclaration>
-                    {
+                    Properties =
+                    [
                         new EDeclaration("test", "Test1"),
                         new EDeclaration("test", "Test1")
-                    }
+                    ]
                 }
-            }
+            ]
         });
 
         // assert
@@ -103,22 +103,22 @@ public class PostValidationTests
     public void ValidationShouldSucceed_UtilityIdentifiersAreUnique()
     {
         // arrange
-        var validator = new PostValidator(new List<IPostValidationStep> { new UtilityIdentifiersAreUnique() });
+        var validator = new PostValidator([new UtilityIdentifiersAreUnique()]);
 
         // act
         var result = validator.Validate(new ETree
         {
-            Utilities = new List<EUtility>
-            {
+            Utilities =
+            [
                 new EUtility("Test")
                 {
-                    Functions = new List<EFunction>
-                    {
-                        new EFunction("void", "Test1", null),
-                        new EFunction("void", "Test2", null)
-                    }
+                    Functions =
+                    [
+                        new EFunction("void", "Test1", []),
+                        new EFunction("void", "Test2", [])
+                    ]
                 }
-            }
+            ]
         });
 
         // assert
@@ -129,22 +129,22 @@ public class PostValidationTests
     public void ValidationShouldFail_UtilityIdentifiersAreUnique()
     {
         // arrange
-        var validator = new PostValidator(new List<IPostValidationStep> { new UtilityIdentifiersAreUnique() });
+        var validator = new PostValidator([new UtilityIdentifiersAreUnique()]);
 
         // act
         var result = validator.Validate(new ETree
         {
-            Utilities = new List<EUtility>
-            {
+            Utilities =
+            [
                 new EUtility("Test")
                 {
-                    Functions = new List<EFunction>
-                    {
-                        new EFunction("void", "Test1", null),
-                        new EFunction("void", "Test1", null)
-                    }
+                    Functions =
+                    [
+                        new EFunction("void", "Test1", []),
+                        new EFunction("void", "Test1", [])
+                    ]
                 }
-            }
+            ]
         });
 
         // assert

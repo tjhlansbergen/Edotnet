@@ -7,11 +7,11 @@ public class Worker
 {
     public bool Verbose { get; set; } = true;
 
-    private string _name;
-    private string[] _lines;
-    private ETree _tree;
+    private string? _name;
+    private string[] _lines = [];
+    private ETree? _tree;
 
-    public Worker(TextWriter outputChannel = null)
+    public Worker(TextWriter? outputChannel = null)
     {
         // divert output if requested
         if (outputChannel != null) Console.SetOut(outputChannel);
@@ -131,7 +131,7 @@ public class Worker
         {
             if (ex is System.Reflection.TargetInvocationException)
             {
-                throw new EngineException($"Runtime error: {ex.InnerException.Message}");
+                throw new EngineException($"Runtime error: {ex?.InnerException?.Message ?? "<<no message>>"}");
             }
             else
             {

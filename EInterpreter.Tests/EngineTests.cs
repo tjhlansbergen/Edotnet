@@ -14,8 +14,8 @@ public class EngineTests
         var engine = new EInterpreter.Engine.Engine();
         var tree = new ETree
         {
-            Constants = new List<EConstant> {new EConstant("test", "Test1", "")},
-            Utilities = new List<EUtility> {new EUtility("Test2")}
+            Constants = [new EConstant("test", "Test1", "")],
+            Utilities = [new EUtility("Test2")]
         };
 
         // assert
@@ -30,19 +30,19 @@ public class EngineTests
 
         var tree = new ETree
         {
-            Utilities = new List<EUtility>
-            {
+            Utilities =
+            [
                 new EUtility("Program")
                 {
-                    Functions = new List<EFunction>
-                    {
-                        new EFunction("Boolean", "Program.Start", new List<EProperty> {new EProperty("Text", "arguments")})
+                    Functions =
+                    [
+                        new EFunction("Boolean", "Program.Start", [new EProperty("Text", "arguments")])
                         {
                             Elements = { new EReturn("", "true")}
                         }
-                    }
+                    ]
                 }
-            }
+            ]
         };
 
         // act

@@ -6,15 +6,21 @@ namespace EInterpreter.Validation;
 public class PostValidator : IValidator<ETree>
 {
     private readonly List<IPostValidationStep> _steps;
-    public List<ValidationStepResult> Results { get; private set; }
+    public List<ValidationStepResult> Results { get; private set; } = [];
 
     public PostValidator(List<IPostValidationStep> steps)
     {
         _steps = steps;
     }
 
-    public bool Validate(ETree tree)
+    public bool Validate(ETree? tree)
     {
+        if (tree == null) 
+        {
+            Results = [new ValidationStepResult(false, "Call tree was null")];
+            return false;
+        }
+
         var results = new ConcurrentBag<ValidationStepResult>();
 
         // run steps in parallel
