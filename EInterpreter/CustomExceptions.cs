@@ -1,24 +1,21 @@
 ﻿namespace EInterpreter;
 
-public class ParserException : Exception
+public class ParserException(string message) : Exception(message)
 {
-    public ParserException(string message) : base(message) { }
 }
 
-public class EngineException : Exception
+public class EngineException(string message) : Exception(message)
 {
-    public EngineException(string message) : base(message) { }
 }
 
-class PreValidationException : Exception
+class PreValidationException(string message) : Exception(message)
 {
-    public PreValidationException(string message) : base(message) { }
 }
-class LexerException : Exception
+
+class LexerException(string message) : Exception(message)
 {
-    public LexerException(string message) : base(message) { }
 }
-class PostValidationException : Exception
+
+class PostValidationException(string message) : Exception(message)
 {
-    public PostValidationException(string message) : base(message) { }
 }

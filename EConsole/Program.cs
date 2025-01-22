@@ -9,7 +9,7 @@ class Program
         {
             Console.Write("Please provide the path of the E# file to run: ");
             Array.Resize(ref args, 1);
-            args[0] = Console.ReadLine();
+            args[0] = Console.ReadLine() ?? string.Empty;
         }
 
         var path = args[0].Replace("\"", "");

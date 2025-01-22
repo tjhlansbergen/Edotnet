@@ -12,8 +12,8 @@ public class ModulesTests
         var result = EBuildIn.Modules.FindFunctionAndReturnParameters("Console", "WriteLine");
 
         // assert
-        Assert.AreEqual(1, result.Count);
-        Assert.AreEqual(Types.T, result.Single());
+        Assert.AreEqual(1, result?.Count);
+        Assert.AreEqual(Types.T, result?.Single());
     }
 
     [TestMethod]
