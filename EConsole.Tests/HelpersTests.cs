@@ -9,7 +9,10 @@ public class HelpersTests
     public void TestIsValidTextFile()
     {
         // arrange
-        var path = Path.Combine(new DirectoryInfo(Environment.CurrentDirectory).Parent?.Parent?.Parent?.Parent?.FullName, "TestScripts");
+        var solutionRootDir = new DirectoryInfo(Environment.CurrentDirectory).Parent?.Parent?.Parent?.Parent?.FullName;
+        if (solutionRootDir == null) throw new DirectoryNotFoundException("Could not find root directory");
+
+        var path = Path.Combine(solutionRootDir, "TestScripts");
 
         // assert
         foreach (var file in Directory.GetFiles(path))

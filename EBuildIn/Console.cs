@@ -2,7 +2,7 @@
 
 public static class Console
 {
-    public static List<Types> WriteLineParameters => new List<Types> { Types.T };
+    public static List<Types> WriteLineParameters => [Types.T];
 
     public static Variable WriteLine(Variable line)
     {

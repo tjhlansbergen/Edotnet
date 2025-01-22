@@ -2,18 +2,18 @@
 
 public static class Number
 {
-    public static List<Types> AddParameters => new List<Types> { Types.Number, Types.Number };
-    public static List<Types> SubtractParameters => new List<Types> { Types.Number, Types.Number };
-    public static List<Types> MultiplyParameters => new List<Types> { Types.Number, Types.Number };
-    public static List<Types> DivideParameters => new List<Types> { Types.Number, Types.Number };
-    public static List<Types> RemainderParameters => new List<Types> { Types.Number, Types.Number };
+    public static List<Types> AddParameters => [Types.Number, Types.Number];
+    public static List<Types> SubtractParameters => [Types.Number, Types.Number];
+    public static List<Types> MultiplyParameters => [Types.Number, Types.Number];
+    public static List<Types> DivideParameters => [Types.Number, Types.Number];
+    public static List<Types> RemainderParameters => [Types.Number, Types.Number];
     
-    public static List<Types> AreEqualParameters => new List<Types> { Types.Number, Types.Number };
-    public static List<Types> NotEqualParameters => new List<Types> { Types.Number, Types.Number };
-    public static List<Types> LessThenParameters => new List<Types> { Types.Number, Types.Number };
-    public static List<Types> GreaterThenParameters => new List<Types> { Types.Number, Types.Number };
+    public static List<Types> AreEqualParameters => [Types.Number, Types.Number];
+    public static List<Types> NotEqualParameters => [Types.Number, Types.Number];
+    public static List<Types> LessThenParameters => [Types.Number, Types.Number];
+    public static List<Types> GreaterThenParameters => [Types.Number, Types.Number];
 
-    public static List<Types> ToTextParameters => new List<Types> { Types.Number };
+    public static List<Types> ToTextParameters => [Types.Number];
 
     public static Variable Add(Variable var, Variable value)
     {
@@ -73,7 +73,7 @@ public static class Number
     private static Variable Operator(Variable var, Variable value, Func<double, double, double> operate)
     {
         TryConvertValue(value, out var result); 
-        return new Variable(Types.Number, operate((double)var.Value, result));
+        return new Variable(Types.Number, operate((double)(var.Value ?? double.NaN), result));
     }
 
     private static bool TryConvertValue(Variable value, out double result)

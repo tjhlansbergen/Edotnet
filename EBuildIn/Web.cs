@@ -4,7 +4,7 @@ namespace EBuildIn;
 
 public static class Web
 {
-    public static List<Types> ReadParameters => new List<Types> { Types.Text };
+    public static List<Types> ReadParameters => [Types.Text];
 
     public static Variable Read(Variable url)
     {

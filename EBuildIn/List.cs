@@ -2,11 +2,11 @@
 
 public static class List
 {
-    public static List<Types> AddParameters => new List<Types> { Types.List, Types.T };
+    public static List<Types> AddParameters => [Types.List, Types.T];
     public static Variable Add(Variable list, Variable var)
     {
         // test for type mismatch
-        if (list.SubTypes?.First() != var.Type.ToString() && (list.SubTypes?.First() != var.SubTypes?.First() && !string.IsNullOrEmpty(var.SubTypes?.First())))
+        if (list.SubTypes?.First() != var.Type.ToString() && list.SubTypes?.First() != var.SubTypes?.First() && !string.IsNullOrEmpty(var.SubTypes?.First()))
         { 
             throw new Exception($"Type mismatch when adding value to list: {list.Name}"); 
         }
@@ -19,7 +19,7 @@ public static class List
         return new Variable(Types.Boolean, true);
     }
 
-    public static List<Types> FirstParameters => new List<Types> { Types.List };
+    public static List<Types> FirstParameters => [Types.List];
     public static Variable First(Variable list)
     {
         return (list.Value != null && ((List<Variable>)list.Value).Any())
@@ -27,13 +27,14 @@ public static class List
             : Variable.Empty;
     }
 
-    public static List<Types> GetParameters => new List<Types> { Types.List, Types.Number };
+    public static List<Types> GetParameters => [Types.List, Types.Number];
     public static Variable Get(Variable list, Variable index)
     {
+        if (list.Value == null) throw new Exception($"Cannot get item from empty list: {list.Name}"); 
         return ((List<Variable>)list.Value)[Convert.ToInt32(index.Value)];
     }
 
-    public static List<Types> CountParameters => new List<Types> { Types.List };
+    public static List<Types> CountParameters => [Types.List];
     public static Variable Count(Variable list)
     {
         if(list.Value == null) { return new Variable(Types.Number, 0); }

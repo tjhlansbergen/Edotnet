@@ -2,8 +2,8 @@ namespace EBuildIn;
 
 public static class File
 {
-    public static List<Types> ReadParameters => new List<Types> { Types.Text };
-    public static List<Types> ReadLinesParameters => new List<Types> { Types.Text };
+    public static List<Types> ReadParameters => [Types.Text];
+    public static List<Types> ReadLinesParameters => [Types.Text];
 
     public static Variable Read(Variable path)
     {

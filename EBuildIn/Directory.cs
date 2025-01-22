@@ -2,25 +2,25 @@ namespace EBuildIn;
 
 public static class Directory
 {
-    public static List<Types> FilesParameters => new List<Types> { Types.Text };
+    public static List<Types> FilesParameters => [Types.Text];
     
     public static Variable Files(Variable path)
     {
-        var files = System.IO.Directory.GetFiles((string)path.Value);
+        var files = System.IO.Directory.GetFiles(path.Value as string ?? string.Empty);
         var list = files.Select(f => new Variable(Types.Text, f)).ToList();
-        return new Variable(Types.List, new string[] { Types.Text.ToString() }, list);
+        return new Variable(Types.List, [Types.Text.ToString()], list);
     }
 
-    public static List<Types> DirectoriesParameters => new List<Types> { Types.Text };
+    public static List<Types> DirectoriesParameters => [Types.Text];
     
     public static Variable Directories(Variable path)
     {
-        var dirs = System.IO.Directory.GetDirectories((string)path.Value);
+        var dirs = System.IO.Directory.GetDirectories(path.Value as string ?? string.Empty);
         var list = dirs.Select(d => new Variable(Types.Text, d)).ToList();
-        return new Variable(Types.List, new string[] { Types.Text.ToString() }, list);
+        return new Variable(Types.List, [Types.Text.ToString()], list);
     }
 
-    public static List<Types> CurrentParameters => new List<Types> { };
+    public static List<Types> CurrentParameters => [];
 
     public static Variable Current()
     {

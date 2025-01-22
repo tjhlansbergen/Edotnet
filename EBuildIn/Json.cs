@@ -4,14 +4,14 @@ namespace EBuildIn;
 
 public static class Json
 {
-    public static List<Types> SerializeParameters => new List<Types> { Types.T };
+    public static List<Types> SerializeParameters => [Types.T];
     public static Variable Serialize(Variable obj)
     {
         // TODO (this should serialize any variable into JSON
         return Variable.Empty;
     }
 
-    public static List<Types> SelectParameters => new List<Types> { Types.Text, Types.Text };
+    public static List<Types> SelectParameters => [Types.Text, Types.Text];
     public static Variable Select(Variable json, Variable path)
     {
         if (json.Value == null

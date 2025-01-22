@@ -14,7 +14,7 @@ public static class Modules
         var type = Type.GetType($"{namespac}.{module}");
         var propertyInfo = type?.GetProperty(function, BindingFlags.Static | BindingFlags.Public | BindingFlags.GetProperty);
 
-        return (List<Types>)propertyInfo?.GetValue(null);
+        return (List<Types>?)propertyInfo?.GetValue(null);
     }
 
     public static Variable Run(string module, string function, object[] parameters)
@@ -23,7 +23,7 @@ public static class Modules
         var method = type?.GetMethod(function, BindingFlags.Static | BindingFlags.Public);
 
         // each method is responsible for returning a correct Variable
-        return (Variable)method?.Invoke(null, parameters);
+        return method?.Invoke(null, parameters) as Variable ?? Variable.Empty;
 
     }
 }
