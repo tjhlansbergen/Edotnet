@@ -7,7 +7,7 @@ namespace EInterpreter.Lexing;
 /// </summary>
 public class Lexer
 {
-    public List<EToken> Tokens { get; private set; }
+    public List<EToken> Tokens { get; private set; } = [];
 
     /// <summary>
     /// Create a Abstract Source Tree out lines of E source code

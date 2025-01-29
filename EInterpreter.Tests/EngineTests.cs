@@ -11,23 +11,21 @@ public class EngineTests
     public void RunShouldFail()
     {
         // arrange
-        var engine = new EInterpreter.Engine.Engine();
         var tree = new ETree
         {
             Constants = [new EConstant("test", "Test1", "")],
             Utilities = [new EUtility("Test2")]
         };
+        var engine = new EInterpreter.Engine.Engine(tree);
 
         // assert
-        Assert.ThrowsException<EInterpreter.EngineException>(() => engine.Run(tree));
+        Assert.ThrowsException<EInterpreter.EngineException>(() => engine.Run());
     }
 
     [TestMethod]
     public void RunShouldSucceed()
     {
         // arrange
-        var engine = new EInterpreter.Engine.Engine();
-
         var tree = new ETree
         {
             Utilities =
@@ -44,8 +42,9 @@ public class EngineTests
                 }
             ]
         };
+        var engine = new EInterpreter.Engine.Engine(tree);
 
         // act
-        engine.Run(tree);
+        engine.Run();
     }
 }

@@ -8,8 +8,8 @@ public class PreValidator : IValidator<string[]>
 {
     private readonly List<IPreValidationStep> _steps;
 
-    public static readonly string[] Blocks = { "Utility", "Object", "Function" };
-    public List<ValidationStepResult> Results { get; private set; }
+    public static readonly string[] Blocks = ["Utility", "Object", "Function"];
+    public List<ValidationStepResult> Results { get; private set; } = [];
 
     public PreValidator(List<IPreValidationStep> steps)
     {

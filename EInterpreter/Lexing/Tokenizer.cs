@@ -31,7 +31,7 @@ class Tokenizer
         return result;
     }
 
-    private EToken _tokenizeLine(string line, int linenr)
+    private EToken? _tokenizeLine(string line, int linenr)
     {
         foreach (var lineType in Enum.GetValues(typeof(ETokenType)))
         {

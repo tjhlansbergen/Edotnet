@@ -10,18 +10,20 @@ public class Engine
     public TimeSpan Duration { get; private set; }
     public bool Result { get; private set; }
 
-    private ETree _tree;
-    private List<Variable> _stack = [];
+    private readonly ETree _tree;
+    private readonly List<Variable> _stack = [];
 
+    public Engine(ETree tree)
+    {
+        _tree = tree;
+    }
 
-    public void Run(ETree? tree)
+    public void Run()
     {
         var stopwatch = new Stopwatch();
         stopwatch.Restart();
 
-        _tree = tree;
         _run();
-        _tree = null;
 
         stopwatch.Stop();
         Duration = stopwatch.Elapsed;
@@ -37,7 +39,10 @@ public class Engine
         var args = new List<Variable>();
 
         // find and run the singular Start Function, in the singular Program Utility
-        Result = (bool)_runBlock(_tree.Utilities.Single(u => u.Name == "Program").Functions.Single(f => f.Name == "Program.Start"), args).Value;
+        var entrypoint = _tree.Utilities
+            .Single(u => u.Name == "Program").Functions
+            .Single(f => f.Name == "Program.Start");
+        Result = (bool)(_runBlock(entrypoint, args).Value ?? false);
     }
 
     private Variable _runBlock(IRunnableBlock block, List<Variable> variables)
@@ -175,7 +180,7 @@ public class Engine
         if (parts.Length == 2 && _stack.Any(v => v.Type == Types.Object && v.Name == parts[0]))
         {
             var userObject = _stack.Single(v => v.Type == Types.Object && v.Name == parts[0]);
-            var objectVariable = ((List<Variable>)userObject.Value).SingleOrDefault(p => p.Name == parts[1]);
+            var objectVariable = (userObject.Value as List<Variable> ?? []).SingleOrDefault(p => p.Name == parts[1]);
             
             if(objectVariable == null)
             {
@@ -261,9 +266,11 @@ public class Engine
             else
             {
                 // list of object
-                var var = new Variable(Types.Object, subTypes: list.SubTypes, item.Value);
-                var.Name = parts[0]; 
-                result = _runBlock(statement, new List<Variable> { var });
+                var var = new Variable(Types.Object, subTypes: list.SubTypes ?? [], item.Value)
+                {
+                    Name = parts[0]
+                };
+                result = _runBlock(statement, [var]);
             }
 
             // TODO list of list?
@@ -324,12 +331,12 @@ public class Engine
         var parts = parameter.SplitClean('.');
         if (parts.Length == 2 && _stack.Any(v => v.Type == Types.Object && v.Name == parts[0]))
         {
-            var userObjectVariables = (List<Variable>)_stack.Single(v => v.Type == Types.Object && v.Name == parts[0]).Value;
-            if (userObjectVariables.Exists(p => p.Name == parts[1])) { return userObjectVariables.Single(p => p.Name == parts[1]); }
+            var userObjectVariables = _stack.Single(v => v.Type == Types.Object && v.Name == parts[0]).Value as List<Variable>;
+            if (userObjectVariables?.Exists(p => p.Name == parts[1]) ?? false) { return userObjectVariables.Single(p => p.Name == parts[1]); }
         }
 
         // also not a variable, a function call then? if so call it inline and return its return value
-        EFunctionCall call;
+        EFunctionCall? call;
         try { call = Parsers.ParseFunctionCall(parameter); }
         catch { call = null; }
         if (call != null) { return _handleFunctionCall(call); }
