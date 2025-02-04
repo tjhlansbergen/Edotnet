@@ -15,6 +15,7 @@ public class ScriptTests
     [DataRow(new[] { "Hello World!" }, "hello_world_assignment.e")]
     [DataRow(new[] { "Hello World!" }, "hello_world_if.e")]
     [DataRow(new[] { "Hello World!" }, "hello_world_while.e")]
+    [DataRow(new[] { "hi again" }, "hello_world_utility.e")]
     [DataRow(new[] { "Audi", "4", "Porsche", "2" }, "hello_world_object.e")]
     [DataRow(new[] { "10", " ", "8", "9" }, "hello_world_foreach.e")]
     [DataRow(new[] { "10", "7", "Fiffy10" }, "hello_world_foreachobject.e")]
