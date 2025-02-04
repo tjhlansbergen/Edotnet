@@ -119,7 +119,7 @@ public static class Parsers
         
         var parameters = new List<string>();
 
-        if (parameterString.Length > 1)
+        if (parameterString.Length > 0)
         {
             // commas are a difficult case here, they may denote multiple parameters, but could be part of a chained function call
             // ideally we should tokenize such chained calls, for now we traverse them at runtime

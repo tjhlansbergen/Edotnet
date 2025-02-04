@@ -23,9 +23,11 @@ public class ScriptTests
     [DataRow(new[] { "Hello World!" }, "number_equality.e")]
     [DataRow(new[] { "42", "84", "63" }, "number_addition.e")]
     [DataRow(new[] { "420", "6", "3" }, "number_calculus.e")]
+    [DataRow(new[] { "6" }, "number_totext.e")]
     [DataRow(new[] { "1", "Fizz", "Buzz", "FizzBuzz", "98" }, "fizzbuzz_while.e")]
     [DataRow(new[] { "Edotnet" }, "directory_test.e")]
     [DataRow(new[] { "Weerbericht:" }, "web_read.e")]
+    [DataRow(new[] { "6" }, "list_range.e")]
     public void TestWorkerFullScripts(string[] shouldContain, string name)
     {
         // arrange

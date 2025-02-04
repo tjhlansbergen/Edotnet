@@ -40,4 +40,19 @@ public static class List
         if(list.Value == null) { return new Variable(Types.Number, 0); }
         return new Variable(Types.Number, ((List<Variable>)list.Value).Count);
     }
+
+    public static List<Types> RangeParameters => [Types.Number];
+    public static Variable Range(Variable range)
+    {
+        if (range.Type != Types.Number || range.Value is not double)
+        {
+            throw new Exception($"Type mismatch, expected a number for List:Range"); 
+        }
+        
+        var r = range.Value as double? ?? 0;
+        var items = Enumerable.Range(0, (int)r).Select(i => new Variable(Types.Number, i)).ToList();
+
+        var result = new Variable(Types.List, [ "List" ], items);
+        return result;
+    }
 }
