@@ -325,7 +325,12 @@ public class Engine
         // we don't support inline-lists (yet), no need to check for that
 
         // not some literal value, it can be a variable
-        if (_stack.Exists(v => v.Name == parameter)) { return _stack.Single(v => v.Name == parameter); }
+        if (_stack.Exists(v => v.Name == parameter)) 
+	{
+		var v = _stack.Single(v => v.Name == parameter);
+		return v; // should be returning a copy no?
+       	}
+
 
         // not a local variable, an object property maybe?
         var parts = parameter.SplitClean('.');
