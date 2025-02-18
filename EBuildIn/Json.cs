@@ -45,7 +45,7 @@ public static class Json
     }
 
     // TODO: multi select with SelectTokens, but that needs some sort of a multi-type collection (a set?)
-
+    // TODO: DateTime
     private static Variable _variableForToken(JToken token)
     {
         switch (token.Type)

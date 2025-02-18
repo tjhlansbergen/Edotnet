@@ -1,0 +1,31 @@
+// Web Read
+
+Utility Program
+{
+	Function Boolean Start(Text arguments)
+	{
+		new Text content;
+        	new Text forecast;
+        	new List<Text> fivedays;
+        
+        	content = Web:Read("https://data.buienradar.nl/2.0/feed/json");
+        	forecast = Json:Select(content, "$.forecast.shortterm.forecast");
+
+		Console:WriteLine("Weerbericht:");
+		Console:WriteLine(forecast);
+		Console:WriteLine("");
+
+		new Text day1;
+		Text:Append(day1, Json:Select(content, "$.forecast.fivedayforecast[0].day"));
+		Text:Append(day1, " : ");
+		Text:Append(day1, Json:Select(content, "$.forecast.fivedayforecast[0].maxtemperature"));
+		List:Add(fivedays, day1);
+		
+		foreach(day in fivedays)
+		{
+			Console:WriteLine(day);
+		}
+		
+		return true;
+	}
+}

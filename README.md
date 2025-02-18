@@ -14,3 +14,9 @@ Passed!  - Failed:     0, Passed:    27, Skipped:     0, Total:    27, Duration:
 Passed!  - Failed:     0, Passed:   128, Skipped:     0, Total:   128, Duration: 871 ms - EInterpreter.Tests.dll (net8.0)
 Passed!  - Failed:     0, Passed:     1, Skipped:     0, Total:     1, Duration:  94 ms - EConsole.Tests.dll (net8.0)
 ```
+
+# TODO
+- DateTime
+
+
+
