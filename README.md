@@ -1,4 +1,6 @@
-### Edotnet
+# Edotnet
+
+Experimental scripting/programming language implemented in C# (dotnet).
 
 # Getting started: 
 - Navigate to EConsole
