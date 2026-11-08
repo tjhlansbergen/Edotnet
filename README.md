@@ -17,9 +17,11 @@ Passed!  - Failed:     0, Passed:   149, Skipped:     0, Total:   149, Duration:
 Passed!  - Failed:     0, Passed:     1, Skipped:     0, Total:    1, Duration:  94 ms - EConsole.Tests.dll (net10.0)
 ```
 
-# TODO
-- DateTime
-- [...]
+# Adding a 'BuildIn' module:
+- Add a new .cs file to EBuildIn with the name of the new module
+- Implement it's methods. For each method expose it's parameters as an array of `EBuildIn.Types` 
+- Create a test in EBuiltIn.Tests
+- Create a test script in /TestScripts
 
 # Sample E script
 ```
